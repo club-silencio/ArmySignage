@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en-US">
+<head>
+
+  <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+  <meta name="author" content="SemiColonWeb" />
+  <meta http-equiv="Pragma" content="no-cache" />
+
+  <!-- Stylesheets
+  ============================================= -->
+  <link rel="stylesheet" href="css/bootstrap.css" type="text/css" />
+  <link rel="stylesheet" href="style.css" type="text/css" />
+  <link rel="stylesheet" href="css/dark.css" type="text/css" />
+  <link rel="stylesheet" href="css/font-icons.css" type="text/css" />
+  <link rel="stylesheet" href="css/animate.css" type="text/css" />
+  <link rel="stylesheet" href="css/magnific-popup.css" type="text/css" />
+
+  <link rel="stylesheet" href="css/responsive.css" type="text/css" />
+  <link rel="stylesheet" href="css/config.css" type="text/css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Document Title
+  ============================================= -->
+  <title>Army Config Menu</title>
+
+</head>
+
+<body class="stretched dark">
+
+  <!-- Document Wrapper
+  ============================================= -->
+  <div id="wrapper" class="clearfix dark">
+
+    <!-- Content
+    ============================================= -->
+    <section id="content dark">
+
+      <div class="content-wrap dark">
+
+        <div class="container clearfix dark">
+
+          <!-- Post Content
+          ============================================= -->
+          <div class="postcontent nobottommargin clearfix dark">
+            <h2>Location</h2>
+            <input type="text" placeholder="Welcome to..." class="location-input sm-form-control txt">
+
+            <div class="buttonContainer">
+              <h2>Slides <span id="showAll" class="languageButton active">All</span> <span id="showEnglish" class="languageButton">English</span> <span id="showSpanish" class="languageButton">Spanish</span></h2>
+
+              <a href="#" id="enableAll" class="button button-rounded button-reveal button-mini button-aqua button-light tright"><i class="icon-ok-sign"></i><span>Enable All</span></a>
+
+              <a href="#" id="disableAll" class="button button-rounded button-reveal button-mini button-red button-light tright"><i class="icon-remove-circle"></i><span>Disable All</span></a>
+            </div>
+
+            <table class="table table-bordered dark">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>SLIDE TITLE</th>
+                  <th>FORMAT</th>
+                  <th>STATUS</th>
+                  <th>ACTION</th>
+                </tr>
+              </thead>
+              <tbody id="configTable" class="languageTable active">
+
+              </tbody>
+
+              <tbody id="configTable-SPANISH" class="languageTable">
+
+              </tbody>
+            </table>
+            <a href="javascript:void(0)" id="saveButton" class="button button-light button-rounded button-large button-green">SAVE CHANGES</a>
+            <div class="clear"></div>
+            <a href="javascript:void(0)" id="regenerateButton"  data-toggle="tooltip" data-placement="right" title="" data-original-title="You will have to re-enter your changes!" class="button button-light button-rounded button-large button-yellow">REGENERATE</a>
+
+            <table class="hidden">
+              <tbody>
+                <tr id="slideRowTemplate" class="slide-row">
+                  <td class="slideNumber">1</td>
+                  <td class="slideName">lorem</td>
+                  <td class="slideFormat">lorem</td>
+                  <td class="slideStatus">lorem</td>
+                  <td class="toggleSlide"><a href="javascript:void(0)" class="button button-rounded button-reveal button-mini button-red tright"><i class="icon-remove-circle"></i><span>Disable</span></a></td>
+                </tr>
+              </tbody>
+            </table>
+
+          </div><!-- .postcontent end -->
+        </div>
+      </div>
+    </section>
+
+
+  </div><!-- #wrapper end -->
+
+  <!-- Go To Top
+  ============================================= -->
+  <div id="gotoTop" class="icon-angle-up"></div>
+
+  <!-- External JavaScripts
+  ============================================= -->
+  <script type="text/javascript" src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/plugins.js"></script>
+
+  <!-- Footer Scripts
+  ============================================= -->
+  <script type="text/javascript" src="js/functions.js"></script>
+  <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+</html>
