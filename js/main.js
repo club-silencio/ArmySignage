@@ -1,9 +1,7 @@
 // Function to get local storage parameters?
-
-
 var version = 1.9,
- clickTimer = null, //future triple click implementation for when touch is active.
-     slides = [
+  clickTimer = null, //future triple click implementation for when touch is active.
+  slides = [
     {
       id: 1,
       title: 'Welcome',
@@ -14,7 +12,7 @@ var version = 1.9,
       url: 'goarmy.com',
       duration: '6000', //ms
       image: 'none',
-      enabled: false
+      enabled: true
     },
     {
       title: 'Welcome-SPANISH',
@@ -25,7 +23,7 @@ var version = 1.9,
       url: 'goarmy.com',
       duration: '6000', //ms
       image: 'none',
-      enabled: true
+      enabled: false
     },
     {
       title: 'Multicultural_DiverseTraining',
@@ -35,7 +33,7 @@ var version = 1.9,
       copy: 'Training and technology give U.S. Army Soldiers an unmatched skillset. <br />Learn more at <b>goarmy.com</b>.',
       duration: '6000', //ms
       image: 'img/diverse-training.jpg',
-      enabled: false
+      enabled: true
     },
     {
       title: 'Multicultural_PrevailLeadership',
@@ -220,8 +218,7 @@ var version = 1.9,
       duration: '6000', //ms
       image: 'img/take-off.jpg',
       enabled: false
-    }
-    ,
+    },
     {
       title: 'Take_theLeap',
       language: 'english',
@@ -247,7 +244,7 @@ var version = 1.9,
       language: 'english',
       format: 'standard',
       heading: 'Learn <br/><span>for Life.</span>',
-      copy: 'And get the skills you need for a lifetime of achievment. <br />Learn more at <b>goarmy.com</b>.',
+      copy: 'And get the skills you need for a lifetime of achievement. <br />Learn more at <b>goarmy.com</b>.',
       duration: '6000', //ms
       image: 'img/learn-for-life.jpg',
       enabled: false
@@ -428,24 +425,358 @@ var version = 1.9,
       duration: '9000', //ms
       video: 'videos/IES_spa_loyality.mp4',
       top_image1: 'img/scrolling/ies3_screenshot.jpg',
-      enabled: true
+      enabled: false
     },
     {
       id: 37,
-      title: 'IES_honor-SPANISH',
-      language: 'spanish',
+      title: 'NHRA',
+      language: 'english',
       format: 'astro',
-      subformat: 'IES',
-      heading: '<span>Haz que tu</span> <br />trabajo <br />cuente',
-      copy: '<strong id="c1"> En el U.S. Army te puedes ganar</strong> <br /> <strong id="c2">más que un sueldo mientras haces</strong><br /><strong id="c3">la diferencia alrededor del mundo. </strong>',
-      cta: 'Conoce más en <span>goarmy.com</span>',
-      duration: '9000', //ms
-      video: 'videos/IES_spa_honor.mp4',
-      top_image1: 'img/scrolling/ies3_screenshot.jpg',
-      enabled: false
+      subformat: 'astroVid1',
+      heading: 'TECHNOLOGY.<br/>INNOVATION.<br/>TEAMWORK.',
+      copy: '',
+      duration: '35000', //ms
+      cta: 'Find out more at <span>goarmy.com</span>',
+      video: 'videos/nhra.mp4',
+      top_image1: 'img/scrolling/nhra-crew.jpg',
+      top_image2: 'img/scrolling/nhra-car.jpg',
+      enabled: true
     }
 
   ];
+
+function getDate() {
+  var     d = new Date(),
+      month = d.getMonth() + 1,
+        day = d.getDate(),
+     output = (month < 10 ? '0' : '') + month + '/' + (day < 10 ? '0' : '') + day + '/' + d.getFullYear();
+
+  return output;
+}
+
+function populateStandard(index, slide) {
+  $('.' + (index + 1) + '-standard h2').html(slide.heading);
+  $('.' + (index + 1) + '-standard p').html(slide.copy);
+  $('.' + (index + 1) + '-standard .portfolio-image img').attr('src', slide.image);
+  if (slide.subformat) {
+    if (slide.subformat == 'promo') {
+      $('.' + (index + 1) + '-standard .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">');
+      if (slide.footer) {
+        $('.' + (index + 1) + '-standard h3.standard-footer').html(slide.footer);
+      }
+    }
+  }
+}
+
+function populateWelcome(index, slide) {
+  var welcomeIndex = index + 1 + "-welcome",
+      welcomeClass = '.' + welcomeIndex;
+  console.log(welcomeClass);
+
+  $(welcomeClass + ' .welcome-header').html(slide.heading);
+  $(welcomeClass + ' .event-name').html(slide.copy);
+  $('.date').html(getDate()); // update the date field with today's date
+  $(welcomeClass + ' .go-army').html(slide.url);
+}
+
+function populateDisclaimer(index, slide) {
+  var rules = slide.rules,
+          n = 0;
+
+  $('.' + (index + 1) + '-disclaimer h2').html(slide.heading);
+
+  for (n = 0; n < (rules.length); n++) { // make an element for each rule
+    $('.' + (index + 1) + '-disclaimer ul').append('<li>' + rules[n] + '</li>');
+  }
+
+  $('.' + (index + 1) + '-disclaimer p').html(slide.copy);
+
+  if (slide.subformat) {
+    if (slide.subformat == 'highlights') {
+      $('.' + (index + 1) + '-disclaimer h3.disclaimer-subheading').html(slide.subheading);
+      $('.' + (index + 1) + '-disclaimer h3.disclaimer-footer').html(slide.footer);
+    }
+  }
+}
+
+function populateChallenge(index, slide) {
+  var rules = slide.rules;
+
+  $('.' + (index + 1) + '-challenge h2').html(slide.heading);
+
+  $('.' + (index + 1) + '-challenge p.subtitle').html(slide.copy);
+}
+
+function populateDew(index, slide) {
+  $('.' + (index + 1) + '-dew h2').html(slide.heading);
+  $('.' + (index + 1) + '-dew p').html(slide.copy); 
+}
+
+
+function populateAstro(index, slide) {
+
+  $('.' + (index + 1) + '-astro h2').html(slide.heading);
+  $('.' + (index + 1) + '-astro p').html(slide.copy);
+  $('.' + (index + 1) + '-astro h6').html(slide.cta);
+  $('.' + (index + 1) + '-astro video.astrobkgd').append('<source src="' + slide.video + '"/>');
+  $('.' + (index + 1) + '-astro .scrolling_img1 img').attr('src', slide.top_image1);
+  $('.' + (index + 1) + '-astro .scrolling_img2 img').attr('src', slide.top_image2);
+
+  console.log('<source src="' + slide.video + '"/>');
+  console.log('.' + (index + 1) + '-astro video.astrobkgd');
+  $('.' + (index + 1) + '-astro video.astrobkgd').load();
+  //animateAstro(index, slides[(index)]);
+  // $('.' + (index + 1) + ' video').play();
+
+
+  // future dynamimc video implementation?
+
+  // $('.' + (index + 1) + '-dew .dew-bg img').attr('src', slide.image);
+  // if (slide.subformat) {
+  //   if (slide.subformat == 'promo') {
+  //     $('.' + (index + 1) + '-dew .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">');
+  //     if (slide.footer) {
+  //       $('.' + (index + 1) + '-dew h3.standard-footer').html(slide.footer);
+  //     }
+  //   }
+  // }
+}
+
+function generateConfig() {
+  var n;
+
+  for (n = 0; n < (slides.length); n++) {
+
+    var slideRowTemplate = $('#slideRowTemplate').clone(),
+      tempID = 'slide-' + (n + 1);
+
+    if (slides[n].format == 'welcome') {
+      $('.location-input').val(slides[n].copy);
+    }
+
+    //Seperates the English and Spanish slides into different tables
+    if (slides[n].language == 'english') {
+      $('tbody#configTable').append(slideRowTemplate); // add the slide template
+    } else if (slides[n].language == 'spanish') {
+      $('tbody#configTable-SPANISH').append(slideRowTemplate); // add the slide template
+    };
+    
+    slideRowTemplate.attr('id', tempID); // change ID
+    populateConfigRow(n, slides[n]);
+  }
+}
+
+function populateConfigRow(index, slide) {
+  $('#slide-' + (index + 1) + ' td.slideNumber').html(index + 1); // slide number
+  $('#slide-' + (index + 1) + ' td.slideName').html(slide.title);
+  $('#slide-' + (index + 1) + ' td.slideFormat').html(slide.format);
+
+  if (slide.enabled) {
+    $('#slide-' + (index + 1) + ' td.slideStatus').html('Enabled');
+    $('#slide-' + (index + 1) + ' td.toggleSlide').html('<a href="#" id="' + slide.title + '" class="button button-rounded button-reveal button-mini button-red button-light tright buttonDisable"><i class="icon-remove-circle"></i><span>Disable</span></a>');
+  } else {
+    $('#slide-' + (index + 1) + ' td.slideStatus').html('Disabled');
+    $('#slide-' + (index + 1) + ' td.toggleSlide').html('<a href="#" id="' + slide.title + '" class="button button-rounded button-reveal button-mini button-aqua button-light tright buttonEnable"><i class="icon-ok-sign"></i><span>Enable</span></a>');
+  }
+}
+
+function animateDew(index, slideID) {
+  var d = 0, // base delay
+      duration = 6, // easy duration setting just in case it changes.
+      prefix = '.' + (slideID) + '-dew', //JUSTIN - ask about +1:
+      //prefix = '.' + (index + 1) + '-dew', ????????????
+      shakeTargets = $(prefix + ' .geometry-animated'),
+      i;
+  
+  // var black1 = $('#slide-' + (index + 1) + ' #b1');
+  console.log("dew prefix is " + prefix);
+
+  TweenMax.to($(prefix + ' .b1'), 0.4, {top: -75, delay: d + 0.1}); // animate large black polygon
+  TweenMax.to($(prefix + ' .w2'), 0.6, {top: -56, delay: d + 0.5}); // animate large white polygon
+  TweenMax.to($(prefix + ' .y1'), 0.6, {left: -4, top: 25, delay: d + 0.2});
+  TweenMax.to($(prefix + ' .y2'), 0.6, {right: -8, top: 305, delay: d + 0.2});
+  TweenMax.to($(prefix + ' .y3'), 0.6, {left: -8, delay: d + 0.5}); // animate large white polygon
+  TweenMax.to($(prefix + ' .y4'), 0.6, {right: -8, delay: d + 1.7}); // animate large white polygon
+
+  console.log($(prefix + ' video.dew-bg').get(0));
+  TweenMax.to($(prefix + ' video.dew-bg'), 0.1, {autoAlpha: 1, delay: d + 0.65});
+
+  $(prefix + ' video.dew-bg').get(0).play();
+  TweenMax.to($(prefix + ' .y5'), 1, {left: 1200, bottom: 650, delay: d + 0.4}); // animate large yellow flying polygon
+
+  TweenMax.to($(prefix + ' img.dew-thumb-1'), 0.9, {autoAlpha: 1, delay: d + 3.1}); // fade in geometric image
+  TweenMax.to($(prefix + ' img.dew-thumb-2'), 0.9, {autoAlpha: 1, delay: d + 3.6}); // fade in geometric image
+  TweenMax.to($(prefix + ' img.dew-thumb-3'), 0.9, {autoAlpha: 1, delay: d + 4.0}); // fade in geometric image
+
+  // Tween headline & subheadline
+  TweenMax.to($(prefix + ' .dew-headline-container h2'), 0.6, {marginTop: 0, delay: d + 1.35});
+  TweenMax.to($(prefix + ' .dew-text-container p'), 0.4, {autoAlpha: 1, delay: d + 2.2});
+
+  // Tween goarmy.com cta & social icons
+  TweenMax.set($(prefix + ' .social-icons'), {scale: 0.01});
+  TweenMax.to($(prefix + ' .dew-goarmy-container img'), 0.6, {marginTop: 0, delay: d + 2.1});
+  TweenMax.to($(prefix + ' .social-icons'), 0.4, {scale: 1, delay: d + 2.35});
+  TweenMax.to($(prefix + ' .social-icons'), 0.5, {autoAlpha: 1, delay: d + 2.35});
+
+  // shake it up
+  for (i = shakeTargets.length - 1; i >= 0; i--) {
+    TweenMax.fromTo(shakeTargets[i], 2.5, {x: -1}, {x: 1, clearProps: "x", repeat: -1, ease:RoughEase.ease.config({strength: 10, points: 18, template: Linear.easeNone, randomize: true})});
+    TweenMax.fromTo(shakeTargets[i], 2.5, {y: -1}, {y: 1, clearProps: "x", repeat: -1, ease:RoughEase.ease.config({strength: 10, points: 18, template: Linear.easeNone, randomize: true})});
+  }
+}
+
+function animateAstro(index, slideID) {
+    var d = 0, // base delay
+      duration = 6; // easy duration setting just in case it changes.
+      prefix = '.' + (slideID) + '-astro',   //Current fix: Add +1 for Astronaut2, expand your horizons. Remove +1 for Astronaut 1, overcome obstacles
+      console.log("slide id is " + slideID);
+    //On load
+
+
+
+    //Moving video and yellow bars on load for SPA videos
+    if (slideID >= 34) {
+      TweenMax.set($(prefix + ' .yellow_border1'), {height: 32, top: 33});
+      TweenMax.set($(prefix + ' .yellow_border2'), {height: 32, top: -749});
+      TweenMax.set($(prefix + ' .astro_video_box'), {top:890});
+      TweenMax.set($(prefix + ' .astrobkgd'), {height:688});
+      TweenMax.set($(prefix + ' .yellow-bar'), {top:-750});
+    }
+
+    if (slideID == 34) {
+      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35});
+    }
+
+    $(prefix + ' .b1')
+    TweenMax.to($(prefix + ' .astro_tab_container'), .1, {opacity: 1});
+    TweenMax.to($(prefix + ' .astro_video_box'), .1, {opacity: 1});
+    TweenMax.to($(prefix + ' .astro-text-container'), .1, {opacity: 1});
+    TweenMax.set($(prefix + ' .scrolling_img1'), {clearProps: 'all'});
+    TweenMax.set($(prefix + ' .scrolling_img2'), {clearProps: 'all'});
+    console.log("astro prefix is "+ prefix);
+    
+
+    //Adjusting for different scrolling images
+    if (slideID < 33) {
+        //Astronauts
+        TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x:-1200, ease: Power0.easeInOut, delay: 0.5});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay:21});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 21});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 21});
+    }
+    
+    if (slideID == 37) {
+        // NHRA
+        TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x: -1200, ease: Power0.easeInOut, delay: 0.5});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay: 12});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 12});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 12});
+    }
+  
+    if (slideID == 37) {
+        console.log($(prefix + ' div.astro_tab'));
+        $(prefix + ' div.astro_tab').css('height','600px'); //shame
+        //$(prefix + ' div.yellow_border1').css('top','50px'); //shame
+    }
+
+    else if (slideID == 33) { //IES ENG Respect
+        TweenMax.set($(prefix + ' .scrolling_img1'), {x: -50});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
+    }
+
+    else if (slideID == 34) { //IES ENG Loyality
+        //TweenMax.set($(prefix + ' .scrolling_img1'), {x: -400});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
+    }
+
+    else if (slideID > 34) { //IES SPA all
+        TweenMax.set($(prefix + ' .scrolling_img1'), {x: -200});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: 0, ease: Power0.easeInOut});
+    }
+
+    //tab
+    TweenMax.from($(prefix + ' .astro_tab'), 0.3, {top:-900, delay: 0.8});
+    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y:800, delay: 0.8});
+    if (slideID != 37) {
+      TweenMax.staggerFrom([c1,c2,c3],0.4, {opacity: 0, delay: 1.2},0.3);
+    }
+
+    //Video box yellow bars
+    TweenMax.from($(prefix + ' .yellow_border2'), 0.6, {x: -2000, ease: Power2.easeOut, delay:0.8});
+    TweenMax.from($(prefix + ' .yellow_border1'), 0.6, {x: -2000, ease: Power2.easeOut, delay:1.2});
+    TweenMax.fromTo(y1, 3.8, {x: -3500, ease: Power3.easeIn, delay: 0.8}, {x: 3200, ease: Power2.easeOut, delay:2.1});
+    TweenMax.fromTo(y3, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.1}, {x: 3200, ease: Power3.easeOut, delay:2.2});
+    TweenMax.fromTo(y2, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.2}, {x: 3200, ease: Power2.easeOut, delay:2.3});
+
+
+    TweenMax.to($(prefix + ' video.astrobkgd'), 0.2, {opacity: 1, delay: 2.8});
+    $(prefix + ' video.astrobkgd').get(0).play();
+
+    TweenMax.to($(prefix + ' .cta_text'), 1, {bottom:8, ease: Power0.easeInOut, delay:3.0});
+    TweenMax.from(astro_social, 1, {scale: 0, opacity: 0, ease: Elastic.easeOut.config(0.75,0.75), delay:4.0});
+
+
+}
+
+// Define Functions
+function regenerateArray() {
+  // var tempDebugArray = window.localStorage.getArray('slides');
+  // window.localStorage.deleteArray('slides');
+  window.localStorage.clear();
+
+  var tempDebugArray = window.localStorage.getArray('slides');
+  console.log(tempDebugArray.length);
+
+  // slides.forEach(function(e) {
+  //   window.localStorage.pushArrayItem('slides', e); // loop through and put each item in the array
+  //   console.log(window.localStorage.getArray('slides'));
+  // });
+  // alert('Array regenerated.');
+  window.top.location.reload(true);
+}
+
+function compareArrays(codedArray, storageArray) {
+  similar = true;
+
+  for (var x = 0; x < (storageArray.length); x++) {
+    if (codedArray[x].title != storageArray[x].title) {
+      similar = false;
+    }
+  }
+
+  return similar;
+}
+
+function initializeMiniSlides(index, slide, slideNum, duration) {
+
+  var $slides =  $('.' + (index + 1) + '-dew .' + slideNum + '-slide'), // could probably be shortened
+      currentSlide = 0;
+
+  TweenMax.delayedCall(duration, nextSlide);
+
+  function nextSlide() {         
+    TweenMax.to($slides.eq(currentSlide), 1, {autoAlpha: 0});
+    
+    if (currentSlide < $slides.length - 1) {
+      currentSlide++;
+    }
+
+    else {
+      currentSlide = 0;
+    }
+
+    TweenMax.fromTo($slides.eq(currentSlide), 1, {autoAlpha: 0}, {autoAlpha: 1});
+    TweenMax.delayedCall(duration, nextSlide);
+  }
+  
+  
+};
+
 
 $(document).ready(function() {
   console.log('version: ' + version);
@@ -470,9 +801,6 @@ $(document).ready(function() {
       window.localStorage.pushArrayItem('slides', e); // loop through and put each item in the array
     });
   }
-
-
-
 
   generateConfig();
 
@@ -563,16 +891,21 @@ $(document).ready(function() {
       
       if (slideID == 31) { //Astronaut 1 
         setTimeout(function () {
-        owl.trigger('play.owl.autoplay',[10000, 10000]);
-        }, 35000); }
-      else if (slideID == 32) { //Astronaut 2
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 35000);
+      } else if (slideID == 32) { //Astronaut 2
         setTimeout(function () {
-        owl.trigger('play.owl.autoplay',[10000, 10000]);
-        }, 13000); }
-      else if (slideID >= 33) { //All IES
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 13000);
+      } else if (slideID >= 33) { //All IES
         setTimeout(function () {
-        owl.trigger('play.owl.autoplay',[10000, 10000]);
-        }, 9000); }
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 9000);
+      } else if (slideID == 37) { //NHRA SHAME
+        setTimeout(function () {
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 24000);
+      }
         
     } else if (format != 'dew' || format != 'astro') {
       dewVid.currentTime = 0;
@@ -584,7 +917,7 @@ $(document).ready(function() {
   });
 
 function findID (slide) {
-  console.log("slide ID is" + slide.id);
+  console.log("slide ID is " + slide.id);
   return slide.id;
 }
 var slideID = 0;
@@ -764,321 +1097,6 @@ $(document).on('click', '#disableAll', function() {
     }
   });
 });
-
-function getDate() {
-  var d = new Date();
-
-  var month = d.getMonth() + 1,
-        day = d.getDate();
-
-  var output = (month < 10 ? '0' : '') + month + '/' +
-               (day < 10 ? '0' : '') + day + '/' +
-               d.getFullYear();
-
-  return output;
-}
-
-function populateStandard(index, slide) {
-  $('.' + (index + 1) + '-standard h2').html(slide.heading);
-  $('.' + (index + 1) + '-standard p').html(slide.copy);
-  $('.' + (index + 1) + '-standard .portfolio-image img').attr('src', slide.image);
-  if (slide.subformat) {
-    if (slide.subformat == 'promo') {
-      $('.' + (index + 1) + '-standard .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">');
-      if (slide.footer) {
-        $('.' + (index + 1) + '-standard h3.standard-footer').html(slide.footer);
-      }
-    }
-  }
-}
-
-function populateWelcome(index, slide) {
-  var welcomeIndex = index + 1 + "-welcome";
-  var welcomeClass = '.' + welcomeIndex;
-  console.log(welcomeClass);
-
-  $(welcomeClass + ' .welcome-header').html(slide.heading);
-  $(welcomeClass + ' .event-name').html(slide.copy);
-  $('.date').html(getDate()); // update the date field with today's date
-  $(welcomeClass + ' .go-army').html(slide.url);
-}
-
-function populateDisclaimer(index, slide) {
-  var rules = slide.rules;
-
-  $('.' + (index + 1) + '-disclaimer h2').html(slide.heading);
-
-  for (var n = 0; n < (rules.length); n++) { // make an element for each rule
-    $('.' + (index + 1) + '-disclaimer ul').append('<li>' + rules[n] + '</li>');
-  }
-
-  $('.' + (index + 1) + '-disclaimer p').html(slide.copy);
-
-  if (slide.subformat) {
-    if (slide.subformat == 'highlights') {
-      $('.' + (index + 1) + '-disclaimer h3.disclaimer-subheading').html(slide.subheading);
-      $('.' + (index + 1) + '-disclaimer h3.disclaimer-footer').html(slide.footer);
-    }
-  }
-}
-
-function populateChallenge(index, slide) {
-  var rules = slide.rules;
-
-  $('.' + (index + 1) + '-challenge h2').html(slide.heading);
-
-  $('.' + (index + 1) + '-challenge p.subtitle').html(slide.copy);
-}
-
-function populateDew(index, slide) {
-  $('.' + (index + 1) + '-dew h2').html(slide.heading);
-  $('.' + (index + 1) + '-dew p').html(slide.copy); 
-}
-
-
-function populateAstro(index, slide) {
-
-  $('.' + (index + 1) + '-astro h2').html(slide.heading);
-  $('.' + (index + 1) + '-astro p').html(slide.copy);
-  $('.' + (index + 1) + '-astro h6').html(slide.cta);
-  $('.' + (index + 1) + '-astro video.astrobkgd').append('<source src="' + slide.video + '"/>');
-  $('.' + (index + 1) + '-astro .scrolling_img1 img').attr('src', slide.top_image1);
-  $('.' + (index + 1) + '-astro .scrolling_img2 img').attr('src', slide.top_image2);
-
-  console.log('<source src="' + slide.video + '"/>');
-  console.log('.' + (index + 1) + '-astro video.astrobkgd');
-  $('.' + (index + 1) + '-astro video.astrobkgd').load();
-  //animateAstro(index, slides[(index)]);
-  // $('.' + (index + 1) + ' video').play();
-
-
-  // future dynamimc video implementation?
-
-  // $('.' + (index + 1) + '-dew .dew-bg img').attr('src', slide.image);
-  // if (slide.subformat) {
-  //   if (slide.subformat == 'promo') {
-  //     $('.' + (index + 1) + '-dew .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">');
-  //     if (slide.footer) {
-  //       $('.' + (index + 1) + '-dew h3.standard-footer').html(slide.footer);
-  //     }
-  //   }
-  // }
-}
-
-function generateConfig() {
-  console.log(slides.length);
-
-  for (var n = 0; n < (slides.length); n++) {
-
-    var slideRowTemplate = $('#slideRowTemplate').clone(),
-      tempID = 'slide-' + (n + 1);
-
-    if (slides[n].format == 'welcome') {
-      $('.location-input').val(slides[n].copy);
-    }
-
-    //Seperates the English and Spanish slides into different tables
-    if (slides[n].language == 'english') {
-      $('tbody#configTable').append(slideRowTemplate); // add the slide template
-    } else if (slides[n].language == 'spanish') {
-      $('tbody#configTable-SPANISH').append(slideRowTemplate); // add the slide template
-    };
-    
-    slideRowTemplate.attr('id', tempID); // change ID
-    populateConfigRow(n, slides[n]);
-  }
-}
-
-function populateConfigRow(index, slide) {
-  $('#slide-' + (index + 1) + ' td.slideNumber').html(index + 1); // slide number
-  $('#slide-' + (index + 1) + ' td.slideName').html(slide.title);
-  $('#slide-' + (index + 1) + ' td.slideFormat').html(slide.format);
-
-  if (slide.enabled) {
-    $('#slide-' + (index + 1) + ' td.slideStatus').html('Enabled');
-    $('#slide-' + (index + 1) + ' td.toggleSlide').html('<a href="#" id="' + slide.title + '" class="button button-rounded button-reveal button-mini button-red button-light tright buttonDisable"><i class="icon-remove-circle"></i><span>Disable</span></a>');
-  } else {
-    $('#slide-' + (index + 1) + ' td.slideStatus').html('Disabled');
-    $('#slide-' + (index + 1) + ' td.toggleSlide').html('<a href="#" id="' + slide.title + '" class="button button-rounded button-reveal button-mini button-aqua button-light tright buttonEnable"><i class="icon-ok-sign"></i><span>Enable</span></a>');
-  }
-}
-
-function animateDew(index, slideID) {
-  var d = 0, // base delay
-      duration = 6; // easy duration setting just in case it changes.
-      prefix = '.' + (slideID) + '-dew', //JUSTIN - ask about +1:
-      //prefix = '.' + (index + 1) + '-dew', ????????????
-      shakeTargets = $(prefix + ' .geometry-animated');
-  
-  // var black1 = $('#slide-' + (index + 1) + ' #b1');
-  console.log("dew prefix is " + prefix);
-
-  TweenMax.to($(prefix + ' .b1'), .4, {top: -75, delay: d + 1}); // animate large black polygon
-  TweenMax.to($(prefix + ' .w2'), .6, {top: -56, delay: d + .5}); // animate large white polygon
-  TweenMax.to($(prefix + ' .y1'), .6, {left: -4,top: 25, delay: d+.2});
-  TweenMax.to($(prefix + ' .y2'), .6, {right: -8,top: 305, delay: d + .2});
-  TweenMax.to($(prefix + ' .y3'), .6, {left: -8, delay: d + .5}); // animate large white polygon
-  TweenMax.to($(prefix + ' .y4'), .6, {right: -8, delay: d + 1.7}); // animate large white polygon
-
-  console.log($(prefix + ' video.dew-bg').get(0));  
-  TweenMax.to($(prefix + ' video.dew-bg'), .1, {autoAlpha: 1, delay: d + .65});
-
-  $(prefix + ' video.dew-bg').get(0).play();
-  TweenMax.to($(prefix + ' .y5'), 1, {left: 1200, bottom: 650, delay: d + .4}); // animate large yellow flying polygon
-
-  TweenMax.to($(prefix + ' img.dew-thumb-1'), .9, {autoAlpha: 1, delay: d + 3.1}); // fade in geometric image
-  TweenMax.to($(prefix + ' img.dew-thumb-2'), .9, {autoAlpha: 1, delay: d + 3.6}); // fade in geometric image
-  TweenMax.to($(prefix + ' img.dew-thumb-3'), .9, {autoAlpha: 1, delay: d + 4.0}); // fade in geometric image
-
-  // Tween headline & subheadline
-  TweenMax.to($(prefix + ' .dew-headline-container h2'), .6, {marginTop: 0, delay: d + 1.35});
-  TweenMax.to($(prefix + ' .dew-text-container p'), .4, {autoAlpha: 1, delay: d + 2.2});
-
-  // Tween goarmy.com cta & social icons
-  TweenMax.set($(prefix + ' .social-icons'), {scale: .01});
-  TweenMax.to($(prefix + ' .dew-goarmy-container img'), .6, {marginTop: 0, delay: d + 2.1});
-  TweenMax.to($(prefix + ' .social-icons'), .4, {scale: 1, delay: d + 2.35});
-  TweenMax.to($(prefix + ' .social-icons'), .5, {autoAlpha: 1, delay: d + 2.35});
-
-  // shake it up
-  for (var i = shakeTargets.length - 1; i >= 0; i--) {
-    TweenMax.fromTo(shakeTargets[i], 2.5, {x:-1}, {x:1, clearProps:"x", repeat:-1, ease:RoughEase.ease.config({strength:10, points:18, template:Linear.easeNone, randomize:true})});
-    TweenMax.fromTo(shakeTargets[i], 2.5, {y:-1}, {y:1, clearProps:"x", repeat:-1, ease:RoughEase.ease.config({strength:10, points:18, template:Linear.easeNone, randomize:true})});
-  }
-}
-
-function animateAstro(index, slideID) {
-    var d = 0, // base delay
-      duration = 6; // easy duration setting just in case it changes.
-      prefix = '.' + (slideID) + '-astro',   //Current fix: Add +1 for Astronaut2, expand your horizons. Remove +1 for Astronaut 1, overcome obstacles
-      console.log("slide id is " + slideID);
-    //On load
-
-
-
-    //Moving video and yellow bars on load for SPA videos
-    if (slideID >= 34) {
-      TweenMax.set($(prefix + ' .yellow_border1'), {height: 32, top: 33});
-      TweenMax.set($(prefix + ' .yellow_border2'), {height: 32, top: -749});
-      TweenMax.set($(prefix + ' .astro_video_box'), {top:890});
-      TweenMax.set($(prefix + ' .astrobkgd'), {height:688});
-      TweenMax.set($(prefix + ' .yellow-bar'), {top:-750});
-    }
-
-    if (slideID == 34) {
-      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35});
-    }
-
-    $(prefix + ' .b1')
-    TweenMax.to($(prefix + ' .astro_tab_container'), .1, {opacity: 1});
-    TweenMax.to($(prefix + ' .astro_video_box'), .1, {opacity: 1});
-    TweenMax.to($(prefix + ' .astro-text-container'), .1, {opacity: 1});
-    TweenMax.set($(prefix + ' .scrolling_img1'), {clearProps: 'all'});
-    TweenMax.set($(prefix + ' .scrolling_img2'), {clearProps: 'all'});
-    console.log("astro prefix is "+ prefix);
-    
-
-    //Adjusting for different scrolling images
-    if (slideID < 33) { //Astronauts
-        TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x:-1200, ease: Power0.easeInOut, delay: 0.5});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay:21});
-        TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 21});
-        TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 21});
-    }
-
-    else if (slideID == 33) { //IES ENG Respect
-        TweenMax.set($(prefix + ' .scrolling_img1'), {x: -50});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
-    }
-
-    else if (slideID == 34) { //IES ENG Loyality
-        //TweenMax.set($(prefix + ' .scrolling_img1'), {x: -400});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
-    }
-
-    else if (slideID > 34) { //IES SPA all
-        TweenMax.set($(prefix + ' .scrolling_img1'), {x: -200});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: 0, ease: Power0.easeInOut});
-    }
-
-    //tab
-    TweenMax.from($(prefix + ' .astro_tab'), 0.3, {top:-900, delay: 0.8});
-    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y:800, delay: 0.8});
-    TweenMax.staggerFrom([c1,c2,c3],0.4, {opacity: 0, delay: 1.2},0.3);
-
-    //Video box yellow bars
-    TweenMax.from($(prefix + ' .yellow_border2'), 0.6, {x:-2000, ease: Power2.easeOut, delay:0.8});
-    TweenMax.from($(prefix + ' .yellow_border1'), 0.6, {x:-2000, ease: Power2.easeOut, delay:1.2});
-    TweenMax.fromTo(y1, 3.8, {x:-3500, ease: Power3.easeIn, delay:0.8}, {x:3200, ease: Power2.easeOut, delay:2.1});
-    TweenMax.fromTo(y3, 3.8, {x:-3500, ease: Power2.easeIn, delay:1.1}, {x:3200, ease: Power3.easeOut, delay:2.2});
-    TweenMax.fromTo(y2, 3.8, {x:-3500, ease: Power2.easeIn, delay:1.2}, {x:3200, ease: Power2.easeOut, delay:2.3});
-
-
-    TweenMax.to($(prefix + ' video.astrobkgd'), 0.2, {opacity: 1, delay: 2.8});
-    $(prefix + ' video.astrobkgd').get(0).play();
-
-    TweenMax.to($(prefix + ' .cta_text'), 1, {bottom:8, ease: Power0.easeInOut, delay:3.0});
-    TweenMax.from(astro_social, 1, {scale: 0, opacity: 0, ease: Elastic.easeOut.config(0.75,0.75), delay:4.0});
-
-
-}
-
-function regenerateArray() {
-  // var tempDebugArray = window.localStorage.getArray('slides');
-  // window.localStorage.deleteArray('slides');
-  window.localStorage.clear();
-
-  var tempDebugArray = window.localStorage.getArray('slides');
-  console.log(tempDebugArray.length);
-
-  // slides.forEach(function(e) {
-  //   window.localStorage.pushArrayItem('slides', e); // loop through and put each item in the array
-  //   console.log(window.localStorage.getArray('slides'));
-  // });
-  // alert('Array regenerated.');
-  window.top.location.reload(true);
-}
-
-function compareArrays(codedArray, storageArray) {
-  similar = true;
-
-  for (var x = 0; x < (storageArray.length); x++) {
-    if (codedArray[x].title != storageArray[x].title) {
-      similar = false;
-    }
-  }
-
-  return similar;
-}
-
-function initializeMiniSlides(index, slide, slideNum, duration) {
-
-  var $slides =  $('.' + (index + 1) + '-dew .' + slideNum + '-slide'), // could probably be shortened
-      currentSlide = 0;
-
-  TweenMax.delayedCall(duration, nextSlide);
-
-  function nextSlide() {         
-    TweenMax.to($slides.eq(currentSlide), 1, {autoAlpha: 0});
-    
-    if (currentSlide < $slides.length - 1) {
-      currentSlide++;
-    }
-
-    else {
-      currentSlide = 0;
-    }
-
-    TweenMax.fromTo($slides.eq(currentSlide), 1, {autoAlpha: 0}, {autoAlpha: 1});
-    TweenMax.delayedCall(duration, nextSlide);
-  }
-  
-  
-};
 
 //Show and hide different languages of slides in the config screen
 $('.languageButton').click(function() {
