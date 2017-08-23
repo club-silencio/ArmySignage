@@ -90,7 +90,7 @@ div.line {
 }
 
 .portfolio-text-container img.social-icons {
-  max-width: 160px;
+  max-width: 260px;
 }
 
 .portfolio-text-container img.army-logo {
@@ -139,7 +139,7 @@ div.line {
 }
 
 .welcome-text-container img.social-icons {
-  max-width: 200px;
+  max-width: 290px;
   display: block;
   float: left;
   margin-top: 2.5%;
@@ -637,19 +637,18 @@ video.dew-bg {
 
 /*Bottom Half*/
 .astroFormat .astro_video_box {
-  width:100%;
-  height:702px;
-  top:916px;
+  width: 100%;
+  height: 702px;
+  top: 916px;
   position: absolute;
-  z-index: 10;
+  z-index: 12;
   opacity: 0;
-
 }
 
 .astroFormat .anim-box {
   position: absolute;
-  width:100%;
-  height:702px;
+  width: 100%;
+  height: 702px;
 }
 
 .astroFormat .yellow_border1 {
@@ -663,9 +662,9 @@ video.dew-bg {
 
 .astroFormat .yellow_border2 {
   background-color: #ffd530;
-  width:1080px;
-  height:17px;
-  top:-720px;
+  width: 1080px;
+  height: 17px;
+  top: -720px;
   position: relative;
   z-index: 12;
 
@@ -673,31 +672,34 @@ video.dew-bg {
 
 .astroFormat .yellow-bar {
   background-color: #ffd530;
-  width:2880px;
-  height:235px;
-  position:relative;
+  width: 2880px;
+  height: 235px;
+  position: relative;
   z-index: 12;
-  top:-710px;
+  top: -710px;
   /*left:-2080px;*/
   opacity: 1;
 }
 
 .astroFormat .astrobkgd {
-  width:1080px;
-  height:702px;
+  width: 1080px;
+  height: 702px;
   /*top:-916px;
   position: relative;
   z-index: 11;*/
-  opacity: 0;
   position: relative;
   z-index: 0;
+  opacity: 0;
+}
+
+.video-js, .vjs-tech {
+    position: relative !important;
+    width: 1080px !important;
+    height: auto !important;
 }
 
 
-
 /*Container Styling*/
-
-
 
 .astroFormat .astro-text-container {
   position: absolute;
@@ -758,24 +760,24 @@ video.dew-bg {
   position: absolute;
   bottom: 150px;
   left: 50px;
-  width:96%;
-  height:100px;
+  width: 96%;
+  height: 100px;
 }
 
 .astroFormat .astro-text-container .astro-cta {
   margin-top: 30px;
-  width:750px;
+  width: 700px;
   height: 45px;
   position: relative;
   font-size: 40px;
-  float:left;
+  float: left;
   opacity: 1;
   overflow: hidden;
-  color:#ffd530;
+  color: #ffd530;
 }
 
 .astroFormat .cta_text {
-  bottom:-200px;
+  bottom: -200px;
   position: relative;
 }
 
@@ -783,9 +785,8 @@ video.dew-bg {
   font-size: 40px;
 }
 
-
 .astroFormat .astro-text-container img.social-icons {
-  max-width: 230px;
+  max-width: 260px;
   float: right;
   opacity: 1;
   margin-top: 20px;

@@ -1,6 +1,7 @@
 // Function to get local storage parameters?
-var version = 1.9,
+var version = 2.0,
   clickTimer = null, //future triple click implementation for when touch is active.
+  dynamicVideos = {},
   slides = [
     {
       id: 1,
@@ -330,19 +331,7 @@ var version = 1.9,
       enabled: false
     },
     {
-      id: 30,
-      title: 'DewTour1',
-      language: 'english',
-      format: 'dew',
-      subformat: 'animated',
-      heading: 'No <br /><span>Limits</span>',
-      copy: 'The U.S. Army can take you <br/>beyond your comfort zone&#8212;<br/>find out how at goarmy.com',
-      duration: '6000', //ms
-      image: 'img/more-than-a-job.jpg', //CHANGED FROM img-dew/bg-dew1.png BC FILE NOT FOUND
-      enabled: false
-    },
-    {
-      id: 31,
+      unique_hook: 'astro1',
       title: 'Astronaut1',
       language: 'english',
       format: 'astro',
@@ -351,13 +340,13 @@ var version = 1.9,
       copy: '<strong id="c1"> The U.S. Army Astronaut program</strong> <br /> <strong id="c2">prepares you for any eventuality</strong><br /><strong id="c3">in the world &#8212; and beyond.</strong>',
       duration: '35000', //ms
       cta: 'Find out more at <span>goarmy.com</span>',
-      video: 'videos/US_Army_Astronauts_edited.mp4',
+      video: 'videos/overcome.mp4',
       top_image1: 'img/scrolling/moon_edited.jpg',
       top_image2: 'img/scrolling/bw_astronaut_edited.jpg',
-      enabled: false
+      enabled: true
     },
     {
-      id: 32,
+      unique_hook: 'astro2',
       title: 'Astronaut2',
       language: 'english',
       format: 'astro',
@@ -366,13 +355,13 @@ var version = 1.9,
       copy: '<strong id="c1"> A U.S. Army astronaut career</strong> <br /> <strong id="c2">can take you further than</strong><br /><strong id="c3">you ever thought possible. </strong>',
       duration: '13000', //ms
       cta: 'Find out more at <span>goarmy.com</span>',
-      video: 'videos/2US_Army_Astronauts_edited.mp4',
+      video: 'videos/expand.mp4',
       top_image1: 'img/scrolling/moon_edited.jpg',
       top_image2: 'img/scrolling/bw_astronaut_edited.jpg',
-      enabled: false
+      enabled: true
     },
     {
-      id: 33,
+      unique_hook: 'iesEN',
       title: 'IES_respect',
       language: 'english',
       format: 'astro',
@@ -381,27 +370,13 @@ var version = 1.9,
       copy: '<strong id="c1"> In the U.S. Army, you can earn more</strong> <br /> <strong id="c2">than just a salary while making</strong><br /><strong id="c3">a difference around the world.</strong>',
       duration: '9000', //ms
       cta: 'Find out more at <span>goarmy.com</span>',
-      video: 'videos/IES_eng_respect.mp4',
+      video: 'videos/respect-en.mp4',
       top_image1: 'img/scrolling/ies1_screenshot.jpg',
       enabled: false
     },
     {
-      id: 34,
-      title: 'IES_loyality',
-      language: 'english',
-      format: 'astro',
-      subformat: 'IES',
-      heading: '<span>Make your<br/>hard work</span><br/>Count.',
-      copy: '<strong id="c1"> In the U.S. Army, you can earn more</strong> <br /> <strong id="c2">than just a salary while making</strong><br /><strong id="c3">a difference around the world.</strong>',
-      duration: '9000', //ms
-      cta: 'Find out more at <span>goarmy.com</span>',
-      video: 'videos/IES_eng_loyality.mp4',
-      top_image1: 'img/scrolling/ies2_screenshot.jpg',
-      enabled: false
-    },
-    {
-      id: 35,
-      title: 'IES_respect-SPANISH',
+      unique_hook: 'iesES',
+      title: 'IES_loyalty-SPANISH',
       language: 'spanish',
       format: 'astro',
       subformat: 'IES',
@@ -409,26 +384,12 @@ var version = 1.9,
       copy: '<strong id="c1"> En el U.S. Army te puedes ganar</strong> <br /> <strong id="c2">más que un sueldo mientras haces</strong><br /><strong id="c3">la diferencia alrededor del mundo. </strong>',
       cta: 'Conoce más en <span>goarmy.com</span>',
       duration: '9000', //ms
-      video: 'videos/IES_spa_respect.mp4',
+      video: 'videos/loyalty-es.mp4',
       top_image1: 'img/scrolling/ies3_screenshot.jpg',
-      enabled: false
+      enabled: true
     },
     {
-      id: 36,
-      title: 'IES_loyality-SPANISH',
-      language: 'spanish',
-      format: 'astro',
-      subformat: 'IES',
-      heading: '<span>Haz que tu</span> <br />trabajo <br />cuente',
-      copy: '<strong id="c1"> En el U.S. Army te puedes ganar</strong> <br /> <strong id="c2">más que un sueldo mientras haces</strong><br /><strong id="c3">la diferencia alrededor del mundo. </strong>',
-      cta: 'Conoce más en <span>goarmy.com</span>',
-      duration: '9000', //ms
-      video: 'videos/IES_spa_loyality.mp4',
-      top_image1: 'img/scrolling/ies3_screenshot.jpg',
-      enabled: false
-    },
-    {
-      id: 37,
+      unique_hook: 'nhra',
       title: 'NHRA',
       language: 'english',
       format: 'astro',
@@ -513,17 +474,30 @@ function populateDew(index, slide) {
 }
 
 
-function populateAstro(index, slide) {
+function populateAstro(index, slide, hook) {
+  var tempVideo = '<source src="' + slide.video + '"/>',
+      targetElement = $('.' + (index + 1) + '-astro video.astrobkgd');
 
   $('.' + (index + 1) + '-astro h2').html(slide.heading);
   $('.' + (index + 1) + '-astro p').html(slide.copy);
   $('.' + (index + 1) + '-astro h6').html(slide.cta);
-  $('.' + (index + 1) + '-astro video.astrobkgd').append('<source src="' + slide.video + '"/>');
+  console.log(targetElement);
+  targetElement.html(tempVideo);
+  
+  videojs(targetElement[0],
+    {
+      'controls': false,
+      'autoplay': false,
+      'loop': true,
+      'width': '100%',
+      'height': 628
+    }, function() {
+    console.log('player initialized');
+    dynamicVideos[hook] = this;
+    console.log(dynamicVideos[hook]);
+  });
   $('.' + (index + 1) + '-astro .scrolling_img1 img').attr('src', slide.top_image1);
   $('.' + (index + 1) + '-astro .scrolling_img2 img').attr('src', slide.top_image2);
-
-  console.log('<source src="' + slide.video + '"/>');
-  console.log('.' + (index + 1) + '-astro video.astrobkgd');
   $('.' + (index + 1) + '-astro video.astrobkgd').load();
   //animateAstro(index, slides[(index)]);
   // $('.' + (index + 1) + ' video').play();
@@ -625,101 +599,90 @@ function animateDew(index, slideID) {
   }
 }
 
-function animateAstro(index, slideID) {
+function animateAstro(index, slideID, hook) {
     var d = 0, // base delay
-      duration = 6; // easy duration setting just in case it changes.
-      prefix = '.' + (slideID) + '-astro',   //Current fix: Add +1 for Astronaut2, expand your horizons. Remove +1 for Astronaut 1, overcome obstacles
-      console.log("slide id is " + slideID);
+      duration = 6, // easy duration setting just in case it changes.
+      prefix = '.' + (index + 1) + '-astro'; //Current fix: Add +1 for Astronaut2, expand your horizons. Remove +1 for Astronaut 1, overcome obstacles
     //On load
 
-
-
-    //Moving video and yellow bars on load for SPA videos
-    if (slideID >= 34) {
-      TweenMax.set($(prefix + ' .yellow_border1'), {height: 32, top: 33});
-      TweenMax.set($(prefix + ' .yellow_border2'), {height: 32, top: -749});
-      TweenMax.set($(prefix + ' .astro_video_box'), {top:890});
-      TweenMax.set($(prefix + ' .astrobkgd'), {height:688});
-      TweenMax.set($(prefix + ' .yellow-bar'), {top:-750});
+    //Moving video and yellow bars on load for IES/Astro videos
+    if ((hook == 'astro1') || (hook == 'astro2') || (hook == 'nhra')) {
+      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35, top: 30});
+      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35, top: -720});
+      TweenMax.set($(prefix + ' .astro_video_box'), {top: 890});
+      TweenMax.set($(prefix + ' .astrobkgd'), {height: 688});
+      TweenMax.set($(prefix + ' .yellow-bar'), {top: -720});
     }
-
-    if (slideID == 34) {
+  
+    if ((hook == 'iesEN') || (hook == 'iesES')) {
+      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35});
       TweenMax.set($(prefix + ' .yellow_border2'), {height: 35});
     }
-
-    $(prefix + ' .b1')
-    TweenMax.to($(prefix + ' .astro_tab_container'), .1, {opacity: 1});
-    TweenMax.to($(prefix + ' .astro_video_box'), .1, {opacity: 1});
-    TweenMax.to($(prefix + ' .astro-text-container'), .1, {opacity: 1});
-    TweenMax.set($(prefix + ' .scrolling_img1'), {clearProps: 'all'});
-    TweenMax.set($(prefix + ' .scrolling_img2'), {clearProps: 'all'});
-    console.log("astro prefix is "+ prefix);
+  
+    $(prefix + ' .b1');
+    TweenMax.to($('.' + hook + ' .astro_tab_container'), .1, {opacity: 1});
+    TweenMax.to($('.' + hook + ' .astro_video_box'), .1, {opacity: 1});
+    TweenMax.to($('.' + hook + ' .astro-text-container'), .1, {opacity: 1});
+    TweenMax.set($('.' + hook + ' .scrolling_img1'), {clearProps: 'all'});
+    TweenMax.set($('.' + hook + ' .scrolling_img2'), {clearProps: 'all'});
+    console.log('.' + hook);
     
 
     //Adjusting for different scrolling images
-    if (slideID < 33) {
+    if ((hook == 'astro1') || (hook == 'astro2')) {
         //Astronauts
         TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x:-1200, ease: Power0.easeInOut, delay: 0.5});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x: -1200, ease: Power0.easeInOut, delay: 0.5});
         TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay:21});
         TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 21});
         TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 21});
-    }
-    
-    if (slideID == 37) {
+        
+        TweenMax.to($('.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if (hook == 'nhra') {
         // NHRA
         TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
         TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x: -1200, ease: Power0.easeInOut, delay: 0.5});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay: 12});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 0, delay: 12});
         TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 12});
         TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 12});
-    }
-  
-    if (slideID == 37) {
-        console.log($(prefix + ' div.astro_tab'));
         $(prefix + ' div.astro_tab').css('height','600px'); //shame
         //$(prefix + ' div.yellow_border1').css('top','50px'); //shame
-    }
-
-    else if (slideID == 33) { //IES ENG Respect
+        
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if (hook == 'iesEN') { //IES ENG Respect
         TweenMax.set($(prefix + ' .scrolling_img1'), {x: -50});
         TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
         TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
-    }
-
-    else if (slideID == 34) { //IES ENG Loyality
-        //TweenMax.set($(prefix + ' .scrolling_img1'), {x: -400});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: -400, ease: Power0.easeInOut});
-    }
-
-    else if (slideID > 34) { //IES SPA all
+      
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if (hook == 'iesES') { //IES SPA Loyalty
         TweenMax.set($(prefix + ' .scrolling_img1'), {x: -200});
         TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
         TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: 0, ease: Power0.easeInOut});
+      
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
     }
 
-    //tab
-    TweenMax.from($(prefix + ' .astro_tab'), 0.3, {top:-900, delay: 0.8});
-    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y:800, delay: 0.8});
-    if (slideID != 37) {
+    // Animate Black Background Tab
+    TweenMax.from($(prefix + ' .astro_tab'), 0.3, {top: -900, delay: 0.8});
+    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y: 800, delay: 0.8});
+    if (hook == 'nhra') {
       TweenMax.staggerFrom([c1,c2,c3],0.4, {opacity: 0, delay: 1.2},0.3);
     }
 
-    //Video box yellow bars
+    // Animate Borders
     TweenMax.from($(prefix + ' .yellow_border2'), 0.6, {x: -2000, ease: Power2.easeOut, delay:0.8});
     TweenMax.from($(prefix + ' .yellow_border1'), 0.6, {x: -2000, ease: Power2.easeOut, delay:1.2});
+    // Large Yellow Bars
     TweenMax.fromTo(y1, 3.8, {x: -3500, ease: Power3.easeIn, delay: 0.8}, {x: 3200, ease: Power2.easeOut, delay:2.1});
     TweenMax.fromTo(y3, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.1}, {x: 3200, ease: Power3.easeOut, delay:2.2});
     TweenMax.fromTo(y2, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.2}, {x: 3200, ease: Power2.easeOut, delay:2.3});
+  
+    console.log('.' + hook + ' video.astrobkgd');
+    dynamicVideos[hook].play();
 
-
-    TweenMax.to($(prefix + ' video.astrobkgd'), 0.2, {opacity: 1, delay: 2.8});
-    $(prefix + ' video.astrobkgd').get(0).play();
-
-    TweenMax.to($(prefix + ' .cta_text'), 1, {bottom:8, ease: Power0.easeInOut, delay:3.0});
+    TweenMax.to($(prefix + ' .cta_text'), 1, {bottom:8, ease: Power0.easeInOut, delay:3.2});
     TweenMax.from(astro_social, 1, {scale: 0, opacity: 0, ease: Elastic.easeOut.config(0.75,0.75), delay:4.0});
-
 
 }
 
@@ -823,22 +786,8 @@ $(document).ready(function() {
     stagePadding: 0
   }).on('changed.owl.carousel', function(property) {
     // Reset all tweened properties for standard templates
-    console.log("owl slide id is " + slideID);
     TweenMax.set('.standardFormat h2', {clearProps: 'all', delay: 0});
     TweenMax.set('.standardFormat p', {clearProps: 'all', delay: 0});
-
-    // Reset all tweened properties for dew templates
-    TweenMax.set('.dewFormat .geometry-animated', {clearProps: 'top, left, right, bottom, scale, marginTop, marginBottom'});
-    TweenMax.set('.dewFormat .y5', {clearProps: 'top, left, right, bottom, scale, marginTop, marginBottom'});
-    TweenMax.set('.dewFormat p', {clearProps: 'opacity'});
-    TweenMax.set('.dewFormat img', {clearProps: 'opacity'});
-    TweenMax.set('.dewFormat video.dew-bg', {clearProps: 'opacity'});
-    TweenMax.set('.dewFormat .dew-headline-container h2', {clearProps: 'all'});
-    TweenMax.set('.dewFormat .dew-goarmy-container img', {clearProps: 'all'});
-    TweenMax.set('.dewFormat .dew-slideshow-container', {clearProps: 'opacity'});
-    var dewVid = $('video.dew-bg');
-    dewVid.trigger('pause');
-
 
     /* Reset all tweened properties for astro templates */
     /* The top images for astronaut 1 & 2, which are adding via the slide object, are only resetting after the slide runs completely */
@@ -849,25 +798,27 @@ $(document).ready(function() {
     TweenMax.set('.astroFormat img', {clearProps: 'all'});
     TweenMax.set('.astroFormat video.astrobkgd', {clearProps: 'all'});
     TweenMax.set('.astroFormat .astro-top-image img', {clearProps: 'all'});
-    TweenMax.set('.astroFormat .scrolling_img1', {clearProps: 'all, x, y, left, right'});
-    TweenMax.set('.astroFormat .scrolling_img2', {clearProps: 'all'});
-
+    TweenMax.set('.astroFormat .scrolling_img1', {clearProps: 'all, x, y'});
+    TweenMax.set('.astroFormat .scrolling_img2', {clearProps: 'all, x, y'});
     TweenMax.set('.astroFormat .astro-text-container h2', {clearProps: 'all'});
     TweenMax.set('.astroFormat .astro-slideshow-container', {clearProps: 'all'});
-    var astroVid = $('video.astrobkgd');
-    astroVid.trigger('pause');
-
-
-
+    //todo, figure out how to target this better
+    $.each(dynamicVideos, function(index, value) {
+      value.pause();
+      value.currentTime(0);
+      value.load();
+    }); 
 
     var current = property.item.index;
 
-
-    var src = '.' + ($(property.target).find('.owl-item').eq(current).find('div').attr('class').split(' ').pop()), // get slide ID
-     format = src.substr(src.indexOf("-") + 1); // get the format of the slide
-
-
-
+    var        src = '.' + ($(property.target).find('.owl-item').eq(current).find('div').attr('class').split(' ').pop()), // get slide ID
+            format = src.substr(src.indexOf("-") + 1), // get the format of the slide
+        slideIndex = src.substr(src.indexOf(".") + 1, src.indexOf('-') - 1); // get index
+    
+    console.log('format is ' + format);
+    console.log('slideIndex is ' + slideIndex);
+    
+    //todo, there is something wrong with the indexing here. above should fix that
     if (format == 'standard') {
       // standard animation handler
       headerTarget = $(src + ' h2');
@@ -884,45 +835,36 @@ $(document).ready(function() {
         owl.trigger('play.owl.autoplay',[10000, 10000]);
       }, 25000); // add 4 seconds to dew slides, gross
     } else if (format == 'astro') {
-      console.log('astro prefix: ' + slides[(i - 1)]);
-      animateAstro(i - 1, slideID); // trigger new animation
+      var hook = slides[slideIndex - 1].unique_hook;
+      console.log('hook is ' + hook);
+      animateAstro(slideIndex - 1, slideID, hook); // trigger new animation
       owl.trigger('stop.owl.autoplay');
-      //astroVid.trigger('load');
       
-      if (slideID == 31) { //Astronaut 1 
+      if (hook == 'astro1') { //Astronaut 1 
         setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 35000);
-      } else if (slideID == 32) { //Astronaut 2
+      } else if (hook == 'astro2') { //Astronaut 2
         setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 13000);
-      } else if (slideID >= 33) { //All IES
+      } else if ((hook == 'iesEN') || (hook == 'iesES')) { //All IES
         setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 9000);
-      } else if (slideID == 37) { //NHRA SHAME
+      } else if (hook == 'nhra') { //NHRA SHAME
         setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 24000);
       }
         
-    } else if (format != 'dew' || format != 'astro') {
-      dewVid.currentTime = 0;
-      dewVid.trigger('load');
-      astroVid.currentTime = 0;
-      astroVid.trigger('load');
     }
       
-  });
+});
+    
+    var slideID = 0;
 
-function findID (slide) {
-  console.log("slide ID is " + slide.id);
-  return slide.id;
-}
-var slideID = 0;
-
-  for (var i = 0; i < (slides.length); i++) {
+    for (var i = 0; i < (slides.length); i++) {
 
     // WELCOME
     if (slides[i].format == 'welcome' && slides[i].enabled) {
@@ -933,7 +875,6 @@ var slideID = 0;
       welcomeTemplate.removeAttr('id');
       welcomeTemplate.addClass(tempClass); // change Class
       populateWelcome(i, slides[i]);
-      slideID = findID(slides[i]);
 
     // DISCLAIMER
     } else if (slides[i].format == 'disclaimer' && slides[i].enabled) {
@@ -949,7 +890,6 @@ var slideID = 0;
       }
       disclaimerTemplate.addClass(tempClass); // change Class
       populateDisclaimer(i, slides[i]);
-      slideID = findID(slides[i]);
 
 
     // CHALLENGE
@@ -961,7 +901,6 @@ var slideID = 0;
       challengeTemplate.removeAttr('id');
       challengeTemplate.addClass(tempClass); // change Class
       populateChallenge(i, slides[i]);
-      slideID = findID(slides[i]);
 
 
     // STANDARD
@@ -978,46 +917,27 @@ var slideID = 0;
       }
       standardTemplate.addClass(tempClass); // change Class
       populateStandard(i, slides[i]);
-      slideID = findID(slides[i]);
 
+     //Astronauts
+      //Every Astro template slide must have a 'unique_hook' property!
+      } else if (slides[i].format == 'astro' && slides[i].enabled) {
+        var astroTemplate = $('#astro-animated-template').clone(),
+                tempClass = (i + 1) + '-astro',
+                hookClass = slides[i].unique_hook;
 
-    // DEW TOUR STANDARD
-     // DEW TOUR STANDARD
-    } else if (slides[i].format == 'dew' && slides[i].enabled) {
-      var dewTemplate = $('#dew-animated-template').clone(),
-          tempClass = (i + 1) + '-dew';
-
-      $('.owl-carousel').owlCarousel('add', dewTemplate).owlCarousel('update'); // initialize standard format
-      dewTemplate.removeAttr('id');
-      if(slides[i].subformat != undefined) {
-        if(slides[i].subformat == 'animated') {
-          dewTemplate.addClass('dew-animated');
+        $('.owl-carousel').owlCarousel('add', astroTemplate).owlCarousel('update'); //init
+        astroTemplate.removeAttr('id');
+        if(slides[i].subformat != undefined) {
+           if(slides[i].subformat == 'animated') {
+               astroTemplate.addClass('astro-animated');
+           }
         }
-      }
-      console.log('dew it');
-      dewTemplate.addClass(tempClass); // change Class
-      populateDew(i, slides[i]); // populate dew slide
-      slideID = findID(slides[i]);
-
-    }
-      //Astronauts
-     else if (slides[i].format == 'astro' && slides[i].enabled) {
-      
-      var astroTemplate = $('#astro-animated-template').clone(),
-          tempClass = (i + 1) + '-astro';
-
-      $('.owl-carousel').owlCarousel('add', astroTemplate).owlCarousel('update'); 
-      astroTemplate.removeAttr('id');
-      if(slides[i].subformat != undefined) {
-        if(slides[i].subformat == 'animated') {
-          astroTemplate.addClass('astro-animated');
+        console.log('lift off');
+        if(hookClass != null) {
+          astroTemplate.addClass(hookClass); // change Class
         }
-      }
-      console.log('lift off');
-      astroTemplate.addClass(tempClass); // change Class
-      populateAstro(i, slides[i]); // populate astro slide
-      slideID = findID(slides[i]);
-
+        astroTemplate.addClass(tempClass); // change Class
+        populateAstro(i, slides[i], hookClass); // populate astro slide
     }
   }
 });
