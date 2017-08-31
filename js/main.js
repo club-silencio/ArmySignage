@@ -1,5 +1,5 @@
 // Function to get local storage parameters?
-var version = 2.0,
+var version = 2.3,
   clickTimer = null, //future triple click implementation for when touch is active.
   dynamicVideos = {},
   slides = [
@@ -34,7 +34,7 @@ var version = 2.0,
       copy: 'Training and technology give U.S. Army Soldiers an unmatched skillset. <br />Learn more at <b>goarmy.com</b>.',
       duration: '6000', //ms
       image: 'img/diverse-training.jpg',
-      enabled: true
+      enabled: false
     },
     {
       title: 'Multicultural_PrevailLeadership',
@@ -358,7 +358,7 @@ var version = 2.0,
       video: 'videos/expand.mp4',
       top_image1: 'img/scrolling/moon_edited.jpg',
       top_image2: 'img/scrolling/bw_astronaut_edited.jpg',
-      enabled: true
+      enabled: false
     },
     {
       unique_hook: 'iesEN',
@@ -401,6 +401,19 @@ var version = 2.0,
       video: 'videos/nhra.mp4',
       top_image1: 'img/scrolling/nhra-crew.jpg',
       top_image2: 'img/scrolling/nhra-car.jpg',
+      enabled: true
+    },
+    {
+      unique_hook: 'dew',
+      title: 'DewTour1',
+      language: 'english',
+      format: 'dew',
+      subformat: 'animated',
+      heading: 'No <br /><span>Limits</span>',
+      copy: 'The U.S. Army can take you <br/>beyond your comfort zone&#8212;<br/>find out how at goarmy.com',
+      duration: '6000', //ms
+      video: 'videos/dew-tour.mp4',
+      image: 'img-dew/bg-dew1.png',
       enabled: true
     }
 
@@ -468,11 +481,30 @@ function populateChallenge(index, slide) {
   $('.' + (index + 1) + '-challenge p.subtitle').html(slide.copy);
 }
 
-function populateDew(index, slide) {
+function populateDew(index, slide, hook) {
+  var tempVideo = '<source src="' + slide.video + '"/>',
+      targetElement = $('.' + (index + 1) + '-dew video.dew-bg');
+  
   $('.' + (index + 1) + '-dew h2').html(slide.heading);
-  $('.' + (index + 1) + '-dew p').html(slide.copy); 
+  $('.' + (index + 1) + '-dew p').html(slide.copy);
+  
+  console.log(targetElement);
+  targetElement.html(tempVideo);
+  
+  videojs(targetElement[0],
+    {
+      'controls': false,
+      'autoplay': false,
+      'loop': true,
+      'width': '100%',
+      'height': 702
+    }, function() {
+      console.log('Dew player initialized');
+      dynamicVideos[hook] = this;
+      console.log(dynamicVideos[hook]);
+    });
+    
 }
-
 
 function populateAstro(index, slide, hook) {
   var tempVideo = '<source src="' + slide.video + '"/>',
@@ -492,7 +524,7 @@ function populateAstro(index, slide, hook) {
       'width': '100%',
       'height': 628
     }, function() {
-    console.log('player initialized');
+    console.log('Astro player initialized');
     dynamicVideos[hook] = this;
     console.log(dynamicVideos[hook]);
   });
@@ -554,15 +586,16 @@ function populateConfigRow(index, slide) {
   }
 }
 
-function animateDew(index, slideID) {
+function animateDew(index, slideID, hook) {
   var d = 0, // base delay
       duration = 6, // easy duration setting just in case it changes.
-      prefix = '.' + (slideID) + '-dew', //JUSTIN - ask about +1:
-      //prefix = '.' + (index + 1) + '-dew', ????????????
+      prefix = '.' + (index + 1) + '-dew',
       shakeTargets = $(prefix + ' .geometry-animated'),
       i;
   
-  // var black1 = $('#slide-' + (index + 1) + ' #b1');
+  // On load
+  TweenMax.set($(prefix + ' .dew-bg'), {autoAlpha: 0});
+  TweenMax.set($(prefix + ' .social-icons'), {scale: 0.001});
   console.log("dew prefix is " + prefix);
 
   TweenMax.to($(prefix + ' .b1'), 0.4, {top: -75, delay: d + 0.1}); // animate large black polygon
@@ -572,10 +605,11 @@ function animateDew(index, slideID) {
   TweenMax.to($(prefix + ' .y3'), 0.6, {left: -8, delay: d + 0.5}); // animate large white polygon
   TweenMax.to($(prefix + ' .y4'), 0.6, {right: -8, delay: d + 1.7}); // animate large white polygon
 
-  console.log($(prefix + ' video.dew-bg').get(0));
-  TweenMax.to($(prefix + ' video.dew-bg'), 0.1, {autoAlpha: 1, delay: d + 0.65});
-
-  $(prefix + ' video.dew-bg').get(0).play();
+  // Play background video
+  var currentVid = dynamicVideos[hook];
+  currentVid.play();
+  
+  TweenMax.to($('.' + hook + ' .dew-bg'), 0.2, {autoAlpha: 1, delay: d + 1.0});
   TweenMax.to($(prefix + ' .y5'), 1, {left: 1200, bottom: 650, delay: d + 0.4}); // animate large yellow flying polygon
 
   TweenMax.to($(prefix + ' img.dew-thumb-1'), 0.9, {autoAlpha: 1, delay: d + 3.1}); // fade in geometric image
@@ -603,11 +637,14 @@ function animateAstro(index, slideID, hook) {
     var d = 0, // base delay
       duration = 6, // easy duration setting just in case it changes.
       prefix = '.' + (index + 1) + '-astro'; //Current fix: Add +1 for Astronaut2, expand your horizons. Remove +1 for Astronaut 1, overcome obstacles
+  
     //On load
+    TweenMax.set($(prefix + ' .astrobkgd'), {autoAlpha: 0});
+    TweenMax.set($(prefix + ' .social-icons'), {scale: 0.001});
 
     //Moving video and yellow bars on load for IES/Astro videos
     if ((hook == 'astro1') || (hook == 'astro2') || (hook == 'nhra')) {
-      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35, top: 30});
+      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35, top: 26});
       TweenMax.set($(prefix + ' .yellow_border2'), {height: 35, top: -720});
       TweenMax.set($(prefix + ' .astro_video_box'), {top: 890});
       TweenMax.set($(prefix + ' .astrobkgd'), {height: 688});
@@ -633,7 +670,7 @@ function animateAstro(index, slideID, hook) {
         //Astronauts
         TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
         TweenMax.to($(prefix + ' .scrolling_img1'), 22, {x: -1200, ease: Power0.easeInOut, delay: 0.5});
-        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity:0, delay:21});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 0, delay: 21});
         TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 21});
         TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 21});
         
@@ -678,11 +715,12 @@ function animateAstro(index, slideID, hook) {
     TweenMax.fromTo(y3, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.1}, {x: 3200, ease: Power3.easeOut, delay:2.2});
     TweenMax.fromTo(y2, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.2}, {x: 3200, ease: Power2.easeOut, delay:2.3});
   
-    console.log('.' + hook + ' video.astrobkgd');
-    dynamicVideos[hook].play();
+    var currentVid = dynamicVideos[hook];
+  
+    currentVid.play();
 
     TweenMax.to($(prefix + ' .cta_text'), 1, {bottom:8, ease: Power0.easeInOut, delay:3.2});
-    TweenMax.from(astro_social, 1, {scale: 0, opacity: 0, ease: Elastic.easeOut.config(0.75,0.75), delay:4.0});
+    TweenMax.to($(prefix + ' .social-icons'), 1, {scale: 1, opacity: 1, ease: Elastic.easeOut.config(0.75, 0.75), delay: 4.0});
 
 }
 
@@ -738,11 +776,13 @@ function initializeMiniSlides(index, slide, slideNum, duration) {
   }
   
   
-};
-
+}
 
 $(document).ready(function() {
+  
+  // DEV ---
   console.log('version: ' + version);
+  // DEV ---
 
   var storageArray = window.localStorage.getArray('slides');
 
@@ -785,6 +825,8 @@ $(document).ready(function() {
     margin: 0,
     stagePadding: 0
   }).on('changed.owl.carousel', function(property) {
+    // Kill active tweens, maybe overkill, also mucking with tweens...
+    //TweenMax.killAll(false, true, false);
     // Reset all tweened properties for standard templates
     TweenMax.set('.standardFormat h2', {clearProps: 'all', delay: 0});
     TweenMax.set('.standardFormat p', {clearProps: 'all', delay: 0});
@@ -793,20 +835,32 @@ $(document).ready(function() {
     /* The top images for astronaut 1 & 2, which are adding via the slide object, are only resetting after the slide runs completely */
     TweenMax.set('.astroFormat .astro-shapes-container', {clearProps: 'all'});
     TweenMax.set('.astroFormat .cta_text', {clearProps: 'all'});
-    TweenMax.set('.astroFormat img.astro_top_image img.scrolling_img1 img.scrolling_img2', {clearProps: 'all'});
+    TweenMax.set('.astroFormat img.astro_top_image img', {clearProps: 'all'});
     TweenMax.set('.astroFormat p', {clearProps: 'all'});
     TweenMax.set('.astroFormat img', {clearProps: 'all'});
-    TweenMax.set('.astroFormat video.astrobkgd', {clearProps: 'all'});
+    TweenMax.set('.astroFormat video.astrobkgd', {autoAlpha: 0});
     TweenMax.set('.astroFormat .astro-top-image img', {clearProps: 'all'});
     TweenMax.set('.astroFormat .scrolling_img1', {clearProps: 'all, x, y'});
     TweenMax.set('.astroFormat .scrolling_img2', {clearProps: 'all, x, y'});
     TweenMax.set('.astroFormat .astro-text-container h2', {clearProps: 'all'});
     TweenMax.set('.astroFormat .astro-slideshow-container', {clearProps: 'all'});
+    
+    // Reset all tweened properties for dew templates
+    TweenMax.set('.dewFormat .geometry-animated', {clearProps: 'top, left, right, bottom, scale, marginTop, marginBottom'});
+    TweenMax.set('.dewFormat .y5', {clearProps: 'top, left, right, bottom, scale, marginTop, marginBottom'});
+    TweenMax.set('.dewFormat p', {clearProps: 'opacity'});
+    TweenMax.set('.dewFormat img', {clearProps: 'opacity'});
+    TweenMax.set('.dewFormat .dew-bg', {autoAlpha: 0});
+    TweenMax.set('.dewFormat .dew-headline-container h2', {clearProps: 'all'});
+    TweenMax.set('.dewFormat .dew-goarmy-container img', {clearProps: 'all'});
+    TweenMax.set('.dewFormat .dew-slideshow-container', {clearProps: 'opacity'});
+    
     //todo, figure out how to target this better
     $.each(dynamicVideos, function(index, value) {
+      console.log(index);
       value.pause();
       value.currentTime(0);
-      value.load();
+      //value.load();
     }); 
 
     var current = property.item.index;
@@ -815,10 +869,6 @@ $(document).ready(function() {
             format = src.substr(src.indexOf("-") + 1), // get the format of the slide
         slideIndex = src.substr(src.indexOf(".") + 1, src.indexOf('-') - 1); // get index
     
-    console.log('format is ' + format);
-    console.log('slideIndex is ' + slideIndex);
-    
-    //todo, there is something wrong with the indexing here. above should fix that
     if (format == 'standard') {
       // standard animation handler
       headerTarget = $(src + ' h2');
@@ -826,14 +876,13 @@ $(document).ready(function() {
       TweenMax.to(headerTarget, 1.2,{css:{marginLeft: 0}, ease:Quad.easeOut, delay: .1}); // animate heading
       TweenMax.to(pTarget, 1.2,{autoAlpha: 1, delay: 1.3}); // animate copy
     } else if (format == 'dew') {
-      console.log('dewvid prefix: ' + slides[(i - 1)]);
-      animateDew(i - 1, slideID); // trigger new animation
+      var hook = slides[slideIndex - 1].unique_hook;
+      console.log(slideIndex);
+      animateDew(slideIndex - 1, slideID, hook); // trigger new animation
       owl.trigger('stop.owl.autoplay');
-      console.log('dewvid time: ' + dewVid.currentTime);
-      // dewVid.trigger('load');
       setTimeout(function () {
         owl.trigger('play.owl.autoplay',[10000, 10000]);
-      }, 25000); // add 4 seconds to dew slides, gross
+      }, 25000); // add 4 seconds to dew slides, SHAME
     } else if (format == 'astro') {
       var hook = slides[slideIndex - 1].unique_hook;
       console.log('hook is ' + hook);
@@ -857,7 +906,6 @@ $(document).ready(function() {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 24000);
       }
-        
     }
       
 });
@@ -918,7 +966,7 @@ $(document).ready(function() {
       standardTemplate.addClass(tempClass); // change Class
       populateStandard(i, slides[i]);
 
-     //Astronauts
+      // ASTRO (also IES)
       //Every Astro template slide must have a 'unique_hook' property!
       } else if (slides[i].format == 'astro' && slides[i].enabled) {
         var astroTemplate = $('#astro-animated-template').clone(),
@@ -938,6 +986,26 @@ $(document).ready(function() {
         }
         astroTemplate.addClass(tempClass); // change Class
         populateAstro(i, slides[i], hookClass); // populate astro slide
+        
+      // DEW TOUR
+      } else if (slides[i].format == 'dew' && slides[i].enabled) {
+      var dewTemplate = $('#dew-animated-template').clone(),
+            tempClass = (i + 1) + '-dew',
+            hookClass = slides[i].unique_hook;
+
+      $('.owl-carousel').owlCarousel('add', dewTemplate).owlCarousel('update'); // initialize dew format
+      dewTemplate.removeAttr('id');
+      if(slides[i].subformat != undefined) {
+        if(slides[i].subformat == 'animated') {
+          dewTemplate.addClass('dew-animated');
+        }
+      }
+      if(hookClass != null) {
+        dewTemplate.addClass(hookClass); // change Class
+      }  
+      console.log('dew it');
+      dewTemplate.addClass(tempClass); // change Class
+      populateDew(i, slides[i], hookClass); // populate dew slide
     }
   }
 });

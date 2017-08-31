@@ -476,7 +476,7 @@ span.go-army {
 
 /* Background video */
 
-video.dew-bg {
+.dew-bg {
   position: absolute;
   top: 600px;
   z-index: 0;
@@ -692,10 +692,16 @@ video.dew-bg {
   opacity: 0;
 }
 
-.video-js, .vjs-tech {
-    position: relative !important;
-    width: 1080px !important;
-    height: auto !important;
+.astroFormat .video-js, .astroFormat .vjs-tech {
+  position: relative !important;
+  width: 1080px !important;
+  height: auto !important;
+}
+
+.dewFormat .video-js, .dewFormat .vjs-tech {
+  position: absolute !important;
+  width: 1080px !important;
+  height: auto !important;
 }
 
 
