@@ -79,6 +79,7 @@ div.line {
 .portfolio-text-container p {
   margin-top: 20px;
   font-size: 38px;
+  width: 85%;
 }
 
 .portfolio-text-container .image-footer {
@@ -571,6 +572,7 @@ span.go-army {
   margin-top: 40px;
 }
 
+
 /* Astronauts - KB
 -----------------------------------------------------------------*/
 
@@ -586,20 +588,23 @@ span.go-army {
 .astroFormat .astro-shapes-container {
   height: 1920px;
   width: 1080px;
-
+  position: absolute;
+  top: 0;
+  left: 0;
 }
+
 .astroFormat .astro_top_image {
-  width:1080px;
-  height:936px;
-  margin:0px;
-  padding:0px;
+  width: 1080px;
+  height: 936px;
+  margin: 0px;
+  padding: 0px;
   position: relative;
 }
 
 .astroFormat .astro_top_image img {
-  height:100%;
+  height: 100%;
   max-width: 2300px;
-  width:auto;
+  width: auto;
 }
 .astroFormat .scrolling_img1 {
   position:relative;
@@ -611,25 +616,28 @@ span.go-army {
   position: relative;
   z-index: 8;
   opacity: 0;
-  top:-936px;
-  left:-200px;
+  top: -936px;
+  left: -200px;
+}
+
+.drone.astroFormat .scrolling_img2 {
+  top: -950px
 }
 
 .astroFormat .astro_tab_container {
   position: absolute;
-  width:100%;
-  height:625px;
-  top:0px;
+  width: 100%;
+  height: 625px;
+  top: 0px;
   z-index: 99;
-  opacity:0;
-
+  opacity: 0;
 }
 
 .astroFormat .astro_tab {
-  left:55px;
-  top:-205px;
-  width:735px;
-  height:825px;
+  left: 55px;
+  top: -205px;
+  width: 735px;
+  height: 825px;
   border-radius: 75px;
   background-color: black;
   position: relative;
@@ -645,48 +653,76 @@ span.go-army {
   opacity: 0;
 }
 
+.drone.astroFormat .astro_video_box {
+  top: 940px !important;
+  height: 625px !important;
+}
+
+.band.astroFormat .astro_video_box,
+.band2.astroFormat .astro_video_box {
+  height: 640px !important;
+}
+
+.astro1.astroFormat .astro_video_box {
+  height: 695px !important;
+}
+
+.astro2.astroFormat .astro_video_box {
+  height: 765px !important;
+}
+
+.astro2.astroFormat .astro-footer .image-footer {
+  bottom: 100px !important;
+}
+
 .astroFormat .anim-box {
   position: absolute;
   width: 100%;
   height: 702px;
 }
 
-.astroFormat .yellow_border1 {
+.astroFormat .yellow_border1,
+.astroFormat .yellow_border2 {
+  width: 1080px;
   background-color: #ffd530;
-  width:1080px;
-  height:17px;
-  top:7px;
-  position: relative;
+  position: absolute;
   z-index: 12;
+  height: 35px;
+}
+
+.astroFormat .yellow_border1 {
+  top: 0px;
 }
 
 .astroFormat .yellow_border2 {
-  background-color: #ffd530;
-  width: 1080px;
-  height: 17px;
-  top: -720px;
-  position: relative;
-  z-index: 12;
-
+  bottom: 0px;
 }
 
-.astroFormat .yellow-bar {
+.yellow-bar-container {
+  position: absolute;
+  width: 1080px;
+  height: 100%;
+  top: 0;
+}
+
+.astroFormat .yellow-bar-container .yellow-bar-1 {
+  top: 2px;
+}
+
+.astroFormat .yellow-bar-container .yellow-bar {
   background-color: #ffd530;
   width: 2880px;
-  height: 235px;
+  height: 33.1%;
   position: relative;
   z-index: 12;
-  top: -710px;
-  /*left:-2080px;*/
+  margin-top: -2px;
+/*  top: -707px;*/
   opacity: 1;
 }
 
 .astroFormat .astrobkgd {
   width: 1080px;
   height: 702px;
-  /*top:-916px;
-  position: relative;
-  z-index: 11;*/
   position: relative;
   z-index: 0;
   opacity: 0;
@@ -709,68 +745,72 @@ span.go-army {
 
 .astroFormat .astro-text-container {
   position: absolute;
-  background: transparent;
-  z-index: 999;
-  left: 0;
-  top: 4%;
-  padding: 40px;
-  width: 96% !important;
-  height: 100%;
-  opacity: 0;
+  background: #000;
+  border-radius: 0 0 40px 40px;
+  z-index: 99;
+  left: 5%;
+  top: -600px !important;
+  padding: 30px;
+  width: 70% !important;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+/*  display: none;*/
 }
 
 .astroFormat .astro-text-container .astro-headline-container {
-  position: absolute;
+  position: relative;
   overflow: hidden;
-  width: 1200px;
-  height: 250px;
   font-weight: 400;
-  left: 120px;
-  bottom: 1640px;
   clear: both;
+  z-index: 99;
 }
 
 .astroFormat .astro-text-container .astro-copy-container {
-  position: absolute;
-  width: 1200px;
-  height: 150px;
+  position: relative;
   font-weight: 400;
-  left: 120px;
-  top: 270px;
   font-size: 40px;
   clear: both;
+  z-index: 99;
+}
+
+.astroFormat .astro-text-container .astro-copy-container p.secondary-copy {
+  display: none;
 }
 
 .astroFormat .astro-headline-container h2 {
-  position: absolute;
-  font-size: 78px;
-  margin-top: 15px;
+  position: relative;
+  font-size: 70px;
+/*  margin-top: 15px;*/
   text-transform: uppercase;
   line-height: 1em;
   font-weight: 400;
+  margin: 25px 0 0 15px;
 }
 
 .astroFormat .astro-text-container p {
-  position: absolute;
-  margin-top: 20px;
+  position: relative;
+/*  margin-top: 20px;*/
   font-size: 38px;
   font-weight: 400;
+  margin: 25px 0 15px 15px;
+  opacity: 0;
 }
 
 .astroFormat .astro-text-container strong {
   font-weight: 400;
 }
 
-.astroFormat .astro-text-container .image-footer {
+.astroFormat .astro-footer .image-footer {
   margin-top: 0px;
   position: absolute;
   bottom: 150px;
   left: 50px;
-  width: 96%;
+  width: 90%;
   height: 100px;
 }
 
-.astroFormat .astro-text-container .astro-cta {
+.astroFormat .astro-footer .astro-cta {
   margin-top: 30px;
   width: 700px;
   height: 45px;
@@ -791,32 +831,22 @@ span.go-army {
   font-size: 40px;
 }
 
-.astroFormat .astro-text-container img.social-icons {
+.astroFormat .astro-footer img.social-icons {
   max-width: 260px;
   float: right;
   opacity: 1;
   margin-top: 20px;
-
 }
 
-/*.astroFormat .astro-text-container .dew-goarmy-container {
-  position: relative;
-  overflow: hidden;
-  width: 300px;
-  height: 36px;
-  margin-bottom: 20px;
-  clear: both;
-  float: left;
-}*/
-
-.astroFormat .astro-text-container img#astro_goarmy {
+.astroFormat .astro-footer img#astro_goarmy {
   margin-top: 15px;
   max-width: 270px;
   position: relative;
-  float:right;
-  bottom:-200px;
+  float: right;
+  bottom: -200px;
 }
 
-.astroFormat .astro-text-container p span {
+.astroFormat .astro-text-container p span,
+.astroFormat .astro-footer p span {
   color: #ffd530 !important;
 }

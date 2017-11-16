@@ -1,6 +1,7 @@
 // Function to get local storage parameters?
 var version = 2.3,
   clickTimer = null, //future triple click implementation for when touch is active.
+  slideTimeout,
   dynamicVideos = {},
   slides = [
     {
@@ -107,7 +108,7 @@ var version = 2.3,
       language: 'english',
       format: 'standard',
       heading: 'Find Your <br/><span>Future.</span>',
-      copy: 'U.S. Army ROTC provides over 3,000 scholarships a year&mdash;and one could be yours. <br />Learn more at <b>goarmy.com</b>.',
+      copy: 'U.S. Army ROTC provides over $330K in scholarships at 274 schools around the country&mdash;and one could be yours. <br />Learn more at <b>goarmy.com/rotc</b>.',
       duration: '6000', //ms
       image: 'img/find-your-future.jpg',
       enabled: false
@@ -117,7 +118,7 @@ var version = 2.3,
       language: 'english',
       format: 'standard',
       heading: 'Opportunity <br/><span>Awaits.</span>',
-      copy: 'U.S. Army ROTC is available at more than 1,100 colleges and universities. Plus, nearly 1,200 ROTC candidates get to travel abroad each year. <br />Learn more at <b>goarmy.com</b>.',
+      copy: 'U.S. Army ROTC is available at more than 1,100 colleges and universities. Plus, nearly 1,200 ROTC candidates get to travel abroad each year. <br />Learn more at <b>goarmy.com/rotc</b>.',
       duration: '6000', //ms
       image: 'img/opportunity-awaits.jpg',
       enabled: false
@@ -147,7 +148,7 @@ var version = 2.3,
       language: 'english',
       format: 'standard',
       heading: 'Major in <br/><span>Leadership.</span>',
-      copy: 'Your U.S. Army officer training and education can help lead our nation forward. <br />Learn more at <b>goarmy.com</b>.',
+      copy: 'Your U.S. Army officer training and education can help lead our nation forward. <br />Learn more at <b>goarmy.com/rotc</b>.',
       duration: '6000', //ms
       image: 'img/major-in-leadership.jpg',
       enabled: false
@@ -171,7 +172,7 @@ var version = 2.3,
       copy: 'Enlist in the Army\'s Partnership for Youth Success (PaYS) Program NOW! <br /><br />Log into <span>armypays.com</span> for more information and a complete list of Army PaYS partners.',
       duration: '6000', //ms
       image: 'img/pays1.jpg',
-      promoLogo: 'img/pays.png',
+      //promoLogo: 'img/pays.png',
       enabled: false
     },
     {
@@ -198,7 +199,7 @@ var version = 2.3,
       enabled: false
     },
     {
-      title: 'March2Sucess',
+      title: 'March2Success',
       language: 'english',
       format: 'standard',
       subformat: 'promo',
@@ -207,7 +208,7 @@ var version = 2.3,
       duration: '6000', //ms
       image: 'img/pays2.jpg',
       footer: 'Learn more at <span>march2success.com</span>',
-      promoLogo: 'img/pays.png',
+      //promoLogo: 'img/pays.png',
       enabled: false
     },
     {
@@ -248,7 +249,7 @@ var version = 2.3,
       copy: 'And get the skills you need for a lifetime of achievement. <br />Learn more at <b>goarmy.com</b>.',
       duration: '6000', //ms
       image: 'img/learn-for-life.jpg',
-      enabled: false
+      enabled: true
     },
     {
       title: 'More_thanaJob',
@@ -331,6 +332,20 @@ var version = 2.3,
       enabled: false
     },
     {
+      unique_hook: 'band',
+      title: 'Army Band',
+      language: 'english',
+      format: 'astro',
+      subformat: 'astroVid1',
+      heading: '<span><b>BAND<br/>TOGETHER.</b></span>',
+      copy: '<b>Real Soldiers playing <br/>real music are making <br/>a real difference.</b>',
+      duration: '35000', //ms
+      cta: 'Find out more at <span>goarmy.com</span>',
+      video: 'videos/band1.mp4',
+      top_image1: 'img/scrolling/ocp-uniform.jpg',
+      enabled: true
+    },
+    {
       unique_hook: 'astro1',
       title: 'Astronaut1',
       language: 'english',
@@ -358,7 +373,7 @@ var version = 2.3,
       video: 'videos/expand.mp4',
       top_image1: 'img/scrolling/moon_edited.jpg',
       top_image2: 'img/scrolling/bw_astronaut_edited.jpg',
-      enabled: false
+      enabled: true
     },
     {
       unique_hook: 'iesEN',
@@ -372,7 +387,21 @@ var version = 2.3,
       cta: 'Find out more at <span>goarmy.com</span>',
       video: 'videos/respect-en.mp4',
       top_image1: 'img/scrolling/ies1_screenshot.jpg',
-      enabled: false
+      enabled: true
+    },
+    {
+      unique_hook: 'iesEN2',
+      title: 'IES_loyalty',
+      language: 'english',
+      format: 'astro',
+      subformat: 'IES',
+      heading: '<span>Make your<br/>hard work</span><br/>count.',
+      copy: '<strong id="c1"> In the U.S. Army, you can earn more</strong> <br /> <strong id="c2">than just a salary while making</strong><br /><strong id="c3">a difference around the world.</strong>',
+      duration: '9000', //ms
+      cta: 'Find out more at <span>goarmy.com</span>',
+      video: 'videos/loyalty-en.mp4',
+      top_image1: 'img/scrolling/ies2_screenshot.jpg',
+      enabled: true
     },
     {
       unique_hook: 'iesES',
@@ -382,7 +411,7 @@ var version = 2.3,
       subformat: 'IES',
       heading: '<span>Haz que tu</span> <br />trabajo <br />cuente',
       copy: '<strong id="c1"> En el U.S. Army te puedes ganar</strong> <br /> <strong id="c2">más que un sueldo mientras haces</strong><br /><strong id="c3">la diferencia alrededor del mundo. </strong>',
-      cta: 'Conoce más en <span>goarmy.com</span>',
+      cta: 'Conoce m&aacute;s en <span>goarmy.com</span>',
       duration: '9000', //ms
       video: 'videos/loyalty-es.mp4',
       top_image1: 'img/scrolling/ies3_screenshot.jpg',
@@ -395,12 +424,42 @@ var version = 2.3,
       format: 'astro',
       subformat: 'astroVid1',
       heading: 'TECHNOLOGY.<br/>INNOVATION.<br/>TEAMWORK.',
-      copy: '',
+      copy: '<strong id="c1"> In the U.S. Army, you can earn more</strong> <br /> <strong id="c2">than just a salary while making</strong><br /><strong id="c3">a difference around the world.</strong>',
       duration: '35000', //ms
       cta: 'Find out more at <span>goarmy.com</span>',
       video: 'videos/nhra.mp4',
       top_image1: 'img/scrolling/nhra-crew.jpg',
       top_image2: 'img/scrolling/nhra-car.jpg',
+      enabled: true
+    },
+    {
+      unique_hook: 'band2',
+      title: 'Army Band',
+      language: 'english',
+      format: 'astro',
+      subformat: 'astroVid1',
+      heading: '<span><b>BAND<br/>TOGETHER.</b></span>',
+      copy: 'Find out how you can <br/>join the band at <br/> <b>goarmy.com/band.</b>',
+      duration: '35000', //ms
+      cta: 'Find out more at <span>goarmy.com</span>',
+      video: 'videos/band2.mp4',
+      top_image1: 'img/scrolling/ocp-uniform.jpg',
+      top_image2: 'img/scrolling/nhra-car.jpg',
+      enabled: true
+    },
+    {
+      unique_hook: 'drone',
+      title: 'Drone',
+      language: 'english',
+      format: 'astro',
+      subformat: 'astroVid1',
+      heading: 'SOAR TO <br/>NEW HEIGHTS <br/><span>IN THE U.S. ARMY.</span>',
+      copy: '',
+      duration: '35000', //ms
+      cta: 'Find out more at <span>goarmy.com</span>',
+      video: 'videos/drone.mp4',
+      top_image1: 'img/scrolling/drone2.jpg',
+      top_image2: 'img/scrolling/uav.jpg',
       enabled: true
     },
     {
@@ -414,7 +473,7 @@ var version = 2.3,
       duration: '6000', //ms
       video: 'videos/dew-tour.mp4',
       image: 'img-dew/bg-dew1.png',
-      enabled: true
+      enabled: false
     }
 
   ];
@@ -434,7 +493,9 @@ function populateStandard(index, slide) {
   $('.' + (index + 1) + '-standard .portfolio-image img').attr('src', slide.image);
   if (slide.subformat) {
     if (slide.subformat == 'promo') {
-      $('.' + (index + 1) + '-standard .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">');
+//      if(slide.promoLogo) {
+//        $('.' + (index + 1) + '-standard .secondary-image-wrapper').html('<img src="' + slide.promoLogo + '" class="secondary-image">'); 
+//      }
       if (slide.footer) {
         $('.' + (index + 1) + '-standard h3.standard-footer').html(slide.footer);
       }
@@ -511,7 +572,12 @@ function populateAstro(index, slide, hook) {
       targetElement = $('.' + (index + 1) + '-astro video.astrobkgd');
 
   $('.' + (index + 1) + '-astro h2').html(slide.heading);
-  $('.' + (index + 1) + '-astro p').html(slide.copy);
+  $('.' + (index + 1) + '-astro p.primary-copy').html(slide.copy);
+  
+  if (slide.copy2) {
+    $('.' + (index + 1) + '-astro p.secondary-copy').html(slide.copy2);
+  }
+  
   $('.' + (index + 1) + '-astro h6').html(slide.cta);
   console.log(targetElement);
   targetElement.html(tempVideo);
@@ -528,6 +594,7 @@ function populateAstro(index, slide, hook) {
     dynamicVideos[hook] = this;
     console.log(dynamicVideos[hook]);
   });
+  
   $('.' + (index + 1) + '-astro .scrolling_img1 img').attr('src', slide.top_image1);
   $('.' + (index + 1) + '-astro .scrolling_img2 img').attr('src', slide.top_image2);
   $('.' + (index + 1) + '-astro video.astrobkgd').load();
@@ -644,24 +711,29 @@ function animateAstro(index, slideID, hook) {
 
     //Moving video and yellow bars on load for IES/Astro videos
     if ((hook == 'astro1') || (hook == 'astro2') || (hook == 'nhra')) {
-      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35, top: 26});
-      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35, top: -720});
-      TweenMax.set($(prefix + ' .astro_video_box'), {top: 890});
-      TweenMax.set($(prefix + ' .astrobkgd'), {height: 688});
-      TweenMax.set($(prefix + ' .yellow-bar'), {top: -720});
+//      TweenMax.set($(prefix + ' .yellow_border1'), {top: 26});
+//      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35, top: -720});
+//      TweenMax.set($(prefix + ' .yellow-bar'), {top: -720});
     }
   
-    if ((hook == 'iesEN') || (hook == 'iesES')) {
-      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35});
-      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35});
+    if ((hook == 'band') || (hook == 'band2')) {
+//      TweenMax.set($(prefix + ' .yellow_border1'), {top: 26});
+//      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35, top: -790});
+//      TweenMax.set($(prefix + ' .yellow-bar'), {top: -720});
+    }
+  
+    if ((hook == 'iesEN') || (hook == 'iesES') || (hook == 'iesEN2') || (hook == 'drone')) {
+//      TweenMax.set($(prefix + ' .yellow_border1'), {height: 35});
+//      TweenMax.set($(prefix + ' .yellow_border2'), {height: 35});
     }
   
     $(prefix + ' .b1');
-    TweenMax.to($('.' + hook + ' .astro_tab_container'), .1, {opacity: 1});
-    TweenMax.to($('.' + hook + ' .astro_video_box'), .1, {opacity: 1});
-    TweenMax.to($('.' + hook + ' .astro-text-container'), .1, {opacity: 1});
-    TweenMax.set($('.' + hook + ' .scrolling_img1'), {clearProps: 'all'});
-    TweenMax.set($('.' + hook + ' .scrolling_img2'), {clearProps: 'all'});
+    TweenMax.to($(prefix + ' .astro_tab_container'), .1, {autoAlpha: 1});
+    TweenMax.to($(prefix + ' .astro_video_box'), .1, {autoAlpha: 1});
+    TweenMax.to($(prefix + ' .astro-text-container'), .3, {autoAlpha: 1, delay: 1.4});
+    TweenMax.to($(prefix + ' .astro-text-container p'), .3, {autoAlpha: 1, delay: 1.4});
+    TweenMax.set($(prefix + ' .scrolling_img1'), {clearProps: 'all'});
+    TweenMax.set($(prefix + ' .scrolling_img2'), {clearProps: 'all'});
     console.log('.' + hook);
     
 
@@ -675,6 +747,20 @@ function animateAstro(index, slideID, hook) {
         TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 21});
         
         TweenMax.to($('.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if ((hook == 'band') || (hook == 'band2')) {
+        // BAND
+        TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 41, {x: -900, ease: Power0.easeInOut, delay: 0.5});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 0, delay: 41});
+        
+        // Set slide specific CSS
+        //$(prefix + ' div.astro_tab').css('height','630px'); //shame
+//        $(prefix + ' .astro-text-container').css('top','10px'); //shame
+//        $(prefix + ' p').css('top','-30px'); //shame
+//        $(prefix + ' h2').css('top','30px'); //shame
+      
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+        
     } else if (hook == 'nhra') {
         // NHRA
         TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
@@ -682,7 +768,7 @@ function animateAstro(index, slideID, hook) {
         TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 0, delay: 12});
         TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 12});
         TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 12});
-        $(prefix + ' div.astro_tab').css('height','600px'); //shame
+        $(prefix + ' div.astro_tab').css('height','720px'); //shame
         //$(prefix + ' div.yellow_border1').css('top','50px'); //shame
         
         TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
@@ -698,22 +784,41 @@ function animateAstro(index, slideID, hook) {
         TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: 0, ease: Power0.easeInOut});
       
         TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if (hook == 'iesEN2') { //IES EN Loyalty
+        TweenMax.set($(prefix + ' .scrolling_img1'), {x: -200});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 18.5, {x: 0, ease: Power0.easeInOut});
+      
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+    } else if (hook == 'drone') {
+        // DRONE
+        TweenMax.to($(prefix + ' .scrolling_img1'), .8, {opacity: 1, ease: Power1.easeIn});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 23, {x: -1200, ease: Power0.easeInOut, delay: 0.5});
+        TweenMax.to($(prefix + ' .scrolling_img1'), 1, {opacity: 0, delay: 12});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 1, {opacity: 1, delay: 12});
+        TweenMax.to($(prefix + ' .scrolling_img2'), 23, {x: -300, ease: Power0.easeInOut, delay: 12});
+      
+        TweenMax.to($('.astroFormat.' + hook + ' .astrobkgd'), 0.2, {autoAlpha: 1, delay: 2.8});
+        
+        // Set slide specific CSS
+//        $(prefix + ' div.astro_tab').css('height', '520px'); //shame
+//        $(prefix + ' .astro-text-container').css('top','30px'); //shame
     }
 
     // Animate Black Background Tab
-    TweenMax.from($(prefix + ' .astro_tab'), 0.3, {top: -900, delay: 0.8});
-    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y: 800, delay: 0.8});
+    TweenMax.to($(prefix + ' .astro-text-container'), 0.3, {y: 600, delay: 0.8});
+//    TweenMax.from($(prefix + ' .astro-headline-container h2'), 0.4, {y: 800, delay: 0.8});
     if (hook == 'nhra') {
-      TweenMax.staggerFrom([c1,c2,c3],0.4, {opacity: 0, delay: 1.2},0.3);
+      TweenMax.staggerFrom([c1, c2, c3],0.4, {opacity: 0, delay: 1.2},0.3);
     }
 
     // Animate Borders
     TweenMax.from($(prefix + ' .yellow_border2'), 0.6, {x: -2000, ease: Power2.easeOut, delay:0.8});
     TweenMax.from($(prefix + ' .yellow_border1'), 0.6, {x: -2000, ease: Power2.easeOut, delay:1.2});
     // Large Yellow Bars
-    TweenMax.fromTo(y1, 3.8, {x: -3500, ease: Power3.easeIn, delay: 0.8}, {x: 3200, ease: Power2.easeOut, delay:2.1});
-    TweenMax.fromTo(y3, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.1}, {x: 3200, ease: Power3.easeOut, delay:2.2});
-    TweenMax.fromTo(y2, 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.2}, {x: 3200, ease: Power2.easeOut, delay:2.3});
+    TweenMax.fromTo($(prefix + ' .yellow-bar-container .yellow-bar-1'), 3.8, {x: -3500, ease: Power3.easeIn, delay: 0.8}, {x: 3200, ease: Power2.easeOut, delay:2.1});
+    TweenMax.fromTo($(prefix + ' .yellow-bar-container .yellow-bar-2'), 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.1}, {x: 3200, ease: Power3.easeOut, delay:2.2});
+    TweenMax.fromTo($(prefix + ' .yellow-bar-container .yellow-bar-3'), 3.8, {x: -3500, ease: Power2.easeIn, delay: 1.2}, {x: 3200, ease: Power2.easeOut, delay:2.3});
   
     var currentVid = dynamicVideos[hook];
   
@@ -832,16 +937,18 @@ $(document).ready(function() {
     TweenMax.set('.standardFormat p', {clearProps: 'all', delay: 0});
 
     /* Reset all tweened properties for astro templates */
-    /* The top images for astronaut 1 & 2, which are adding via the slide object, are only resetting after the slide runs completely */
+    /* Killing tweens before clearing props works! */
     TweenMax.set('.astroFormat .astro-shapes-container', {clearProps: 'all'});
     TweenMax.set('.astroFormat .cta_text', {clearProps: 'all'});
     TweenMax.set('.astroFormat img.astro_top_image img', {clearProps: 'all'});
     TweenMax.set('.astroFormat p', {clearProps: 'all'});
     TweenMax.set('.astroFormat img', {clearProps: 'all'});
     TweenMax.set('.astroFormat video.astrobkgd', {autoAlpha: 0});
-    TweenMax.set('.astroFormat .astro-top-image img', {clearProps: 'all'});
-    TweenMax.set('.astroFormat .scrolling_img1', {clearProps: 'all, x, y'});
-    TweenMax.set('.astroFormat .scrolling_img2', {clearProps: 'all, x, y'});
+    TweenMax.set('.astroFormat .astro-top-image img', {clearProps: 'all, x, y'});
+    TweenMax.killTweensOf('.astroFormat .astro_top_image .scrolling_img1');
+    TweenMax.set('.astroFormat .astro_top_image .scrolling_img1', {clearProps: 'all, x, y'});
+    TweenMax.killTweensOf('.astroFormat .astro_top_image .scrolling_img2');
+    TweenMax.set('.astroFormat .astro_top_image .scrolling_img2', {clearProps: 'all, x, y'});
     TweenMax.set('.astroFormat .astro-text-container h2', {clearProps: 'all'});
     TweenMax.set('.astroFormat .astro-slideshow-container', {clearProps: 'all'});
     
@@ -882,29 +989,49 @@ $(document).ready(function() {
       owl.trigger('stop.owl.autoplay');
       setTimeout(function () {
         owl.trigger('play.owl.autoplay',[10000, 10000]);
-      }, 25000); // add 4 seconds to dew slides, SHAME
+      }, 25000); // add 4 seconds to dew slides
     } else if (format == 'astro') {
       var hook = slides[slideIndex - 1].unique_hook;
       console.log('hook is ' + hook);
       animateAstro(slideIndex - 1, slideID, hook); // trigger new animation
       owl.trigger('stop.owl.autoplay');
       
-      if (hook == 'astro1') { //Astronaut 1 
-        setTimeout(function () {
+      // NEED TO REFACTOR
+      if (hook == 'astro1') { // Astronaut 1
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 35000);
-      } else if (hook == 'astro2') { //Astronaut 2
-        setTimeout(function () {
+      } else if (hook == 'astro2') { // Astronaut 2
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 13000);
-      } else if ((hook == 'iesEN') || (hook == 'iesES')) { //All IES
-        setTimeout(function () {
+      } else if ((hook == 'iesEN') || (hook == 'iesES') || (hook == 'iesEN2')) { // All IES
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
         }, 9000);
-      } else if (hook == 'nhra') { //NHRA SHAME
-        setTimeout(function () {
+      } else if (hook == 'nhra') { // NHRA
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
             owl.trigger('play.owl.autoplay',[10000, 10000]);
-        }, 24000);
+        }, 12000);
+      } else if (hook == 'band') { // BAND
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 29000);
+      } else if (hook == 'band2') { // BAND2
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 29000);
+      } else if (hook == 'drone') { // DRONE
+        clearTimeout(slideTimeout);
+        slideTimeout = setTimeout(function () {
+            owl.trigger('play.owl.autoplay',[10000, 10000]);
+        }, 26300);
       }
     }
       
@@ -967,7 +1094,7 @@ $(document).ready(function() {
       populateStandard(i, slides[i]);
 
       // ASTRO (also IES)
-      //Every Astro template slide must have a 'unique_hook' property!
+      // Every Astro template slide must have a 'unique_hook' property!
       } else if (slides[i].format == 'astro' && slides[i].enabled) {
         var astroTemplate = $('#astro-animated-template').clone(),
                 tempClass = (i + 1) + '-astro',
