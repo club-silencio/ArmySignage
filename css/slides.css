@@ -768,8 +768,9 @@ span.go-army {
 
 .astroFormat .astro-text-container .astro-copy-container {
   position: relative;
+  line-height: 1.15em;
   font-weight: 400;
-  font-size: 40px;
+  font-size: 36px;
   clear: both;
   z-index: 99;
 }
