@@ -1,0 +1,1007 @@
+// Colors
+$yellow: #ffd530
+
+// Font Stacks
+$regular-stack: 'Interstate', 'Crete Round', sans-serif
+$light-stack: 'Interstate-Light', 'Crete Round', sans-serif
+
+body
+  text-rendering: optimizeLegibility
+
+div#diverseTraining
+  background-image: url('../img/diverse-training.jpg')
+
+body, .owl-carousel, .owl-item, .content, .content-wrap
+  height: 1920px !important
+  width: 1080px !important
+  overflow: hidden !important
+  margin: 0
+  padding: 0
+
+.welcomeFormat, .disclaimerFormat, .dewFormat, .vrFormat
+  height: 1920px !important
+
+.oc-item
+  h2 span, li span
+    color: $yellow !important
+
+h2 span.kerning-closer
+  margin-left: -.1em
+  color: inherit !important
+
+div
+  &.mfp-content
+    height: 90%
+  &.line
+    margin: 0
+    padding: 0
+    border-top-width: 2px
+    border-top-color: rgba(255, 255, 255, 0.8) !important
+    width: 1300px
+    left: -90px
+
+.portfolio-image img
+  height: 100%
+  
+.vjs-loading-spinner
+  display: none !important
+
+/* Standard - JW
+ *-----------------------------------------------------------------
+
+.portfolio-text-container
+  position: absolute
+  background: #000
+  border-radius: 0 40px 40px 0
+  z-index: 99
+  left: 0
+  top: 4%
+  padding: 40px
+  width: 96% !important
+
+.standardFormat .portfolio-text-container
+  h2
+    margin-left: -1080px
+    font-weight: 400
+  p
+    opacity: 0
+
+.portfolio-text-container
+  h2
+    font-size: 95px
+    text-transform: uppercase
+    line-height: 1em
+    opacity: 0
+  p
+    margin-top: 20px
+    font-size: 38px
+    width: 85%
+    opacity: 0
+  .image-footer
+    margin-top: 0px
+    display: flex
+    flex-direction: row
+    align-items: flex-end
+    justify-content: space-between
+  img
+    &.social-icons
+      max-width: 260px
+    &.army-logo
+      max-width: 160px
+
+/* Welcome - JW
+ *-----------------------------------------------------------------
+
+.welcome-image
+  max-width: 300px
+  margin: 70px 70px 120px 20px
+
+h2.welcome-header
+  color: #FFFFFF !important
+
+.welcome-text-container
+  position: absolute
+  background: #000
+  z-index: 99
+  padding: 40px
+  height: 100%
+  width: 100%
+  line-height: 1em
+  h2
+    font-size: 120px
+    text-align: center
+    text-transform: uppercase
+    line-height: 1em
+    font-weight: 400
+  h2.copy
+    text-align: center
+    text-transform: uppercase
+    line-height: 1em
+    font-weight: 400
+    font-size: 80px
+    span
+      color: $yellow
+  .event-name
+    color: $yellow
+  .date
+    text-align: center
+    font-size: 70px
+    margin: 100px 0
+  .image-footer
+    width: 100%
+    position: absolute
+    bottom: 90px
+  img.social-icons
+    max-width: 290px
+    display: block
+    float: left
+    margin-top: 2.5%
+    margin-left: 20px
+  span.go-army
+    top: 37px
+
+span.go-army
+  font-family: $regular-stack !important
+  color: $yellow
+  font-weight: bold
+  display: block
+  position: absolute
+  right: 100px
+  font-size: 70px
+
+/* Disclaimer - JW
+ *-----------------------------------------------------------------
+
+.disclaimer-image
+  max-width: 160px
+
+.disclaimer-text-container
+  position: absolute
+  background: #000
+  z-index: 99
+  padding: 60px
+  height: 100%
+  width: 100%
+  h2
+    font-size: 100px
+    text-transform: uppercase
+    line-height: .9em
+    margin: 80px auto
+    font-weight: 400
+  ul
+    margin-left: .4em
+    font-size: 40px
+    text-transform: uppercase
+    list-style-type: none
+    list-style-position: inside
+    li
+      line-height: 1em
+      text-indent: -.5em
+      margin-bottom: 50px
+      span
+        color: $yellow
+        &.subscript
+          font-size: 50%
+      &:before
+        color: $yellow
+        content: "- "
+
+/* Challenge - JW
+ *-----------------------------------------------------------------
+
+.challenge-image
+  float: left
+  max-width: 80px
+  margin-right: 30px
+
+.challenge-text-container
+  position: absolute
+  background: #000
+  z-index: 99
+  padding: 60px
+  height: 100%
+  width: 100%
+  h2
+    font-size: 85px
+    margin-top: 15px
+    text-transform: uppercase
+    line-height: .9em
+    font-weight: 400
+  p.subtitle
+    font-size: 35px
+    text-align: center
+  ul
+    margin-left: .4em
+    font-size: 40px
+    text-transform: uppercase
+    list-style-type: none
+    list-style-position: inside
+
+.challenge-wrap
+  display: flex
+  flex-direction: column
+  justify-content: space-around
+  height: 90%
+
+.challenge-item-copy
+  display: flex
+  flex-direction: row
+
+.col-a, .col-b
+  display: flex
+  flex-direction: column
+
+.col-a
+  flex: 5
+
+.col-b
+  flex: 3
+
+.col-a p, .col-b p
+  width: 100%
+
+.challenge-item
+  h3
+    clear: both
+    width: 100%
+    display: block
+    color: $yellow !important
+    font-size: 50px
+    text-transform: uppercase
+    text-indent: -20px
+  p
+    font-size: 35px
+    margin: 0 30px
+  .challenge-animation-wrap
+    margin: 0 40px
+    
+
+/* Dev Menu - JW
+ *-----------------------------------------------------------------
+
+#hiddenButton
+  z-index: 999
+  position: fixed
+  height: 90px
+  width: 90px
+  bottom: 0
+  left: 0
+
+/* initial slide hiding
+
+.owl-carousel .owl-item img
+  &.dew-thumb-1, &.dew-thumb-2, &.dew-thumb-3
+    opacity: 0
+    position: absolute
+  &.dew-thumb-1
+    top: -70px
+    right: 0px
+    height: 400px
+    width: 329px
+  &.dew-thumb-2
+    top: 325px
+    right: 0px
+    height: 355px
+    width: 412px
+    z-index: 2
+  &.dew-thumb-3
+    height: 476px
+    width: 622px
+    bottom: 0px
+    left: -30px
+    z-index: 11
+
+.dew-slideshow-container
+  position: absolute
+  display: block
+  z-index: 1
+  img
+    position: absolute
+    top: 0
+    left: 0
+
+/* One-off slides
+
+.highlights-disclaimer h2
+  font-size: 70px
+
+.promo-standard h3
+  font-size: 50px
+  font-weight: 400
+  margin-bottom: 80px
+  margin-top: 80px
+
+.highlights-disclaimer
+  h3
+    font-size: 50px
+    font-weight: 400
+    margin-bottom: 80px
+    margin-top: 80px
+  ul
+    list-style-image: url('../img/star.png')
+    text-transform: none
+    font-weight: 400
+    li:before
+      color: transparent
+      content: ""
+
+.promo-standard
+  h2
+    font-size: 74px
+  p span
+    color: $yellow !important
+  div.image-footer
+    display: none
+  img.secondary-image
+    float: right
+    max-width: 350px
+    margin-top: 40px
+
+/* Astronauts - KB
+ *-----------------------------------------------------------------
+
+.astroFormat
+  background-color: #000
+  width: 1080px
+  height: 1920px
+  .astro-shapes-container
+    height: 1920px
+    width: 1080px
+    position: absolute
+    top: 0
+    left: 0
+  .astro_top_image
+    width: 1080px
+    height: 936px
+    margin: 0px
+    padding: 0px
+    position: relative
+    img
+      height: 100%
+      max-width: 2300px
+      width: auto
+  .scrolling_img1
+    position: relative
+    z-index: 9
+    opacity: 0
+  .scrolling_img2
+    position: relative
+    z-index: 8
+    opacity: 0
+    top: -936px
+    left: -200px
+  .astro_tab_container
+    position: absolute
+    width: 100%
+    height: 625px
+    top: 0px
+    z-index: 99
+    opacity: 0
+  .astro_tab
+    left: 55px
+    top: -205px
+    width: 735px
+    height: 825px
+    border-radius: 75px
+    background-color: black
+    position: relative
+  .astro_video_box
+    width: 100%
+    height: 702px
+    top: 916px
+    position: absolute
+    z-index: 12
+    opacity: 0
+    
+/* VR - Justin
+ *-----------------------------------------------------------------
+
+.vrFormat, .vrFormat .vr-frame
+  background-color: #000
+  width: 1080px
+  height: 1920px
+.vrFormat
+  position: absolute
+  .vr_top_image
+    width: 1080px
+    height: 642px
+    margin: 0px
+    padding: 0px
+    position: relative
+    .scrolling_img
+      position: relative
+      height: 642px
+      z-index: 9
+      opacity: 0
+      left: -587px
+    img
+      height: 100%
+      max-width: 2300px
+      width: auto
+  .vr_bottom_image
+    width: 1080px
+    height: 647px
+    margin: 0px
+    padding: 0px
+    position: absolute
+    bottom: 0
+    left: 0
+    .scrolling_img
+      position: relative
+      height: 647px
+      z-index: 9
+      opacity: 0
+    img
+      height: 100%
+      max-width: 2300px
+      width: auto
+  .vr-headline-container h2
+    position: relative
+    font-size: 70px
+    text-transform: uppercase
+    line-height: 1em
+    font-weight: 400
+    margin: 25px 0 0 15px
+  .vr-header
+    img
+      position: absolute
+      top: 0
+      left: 0
+  .vr-footer
+    .vr-footer p span
+      color: $yellow !important
+    .image-footer
+      margin-top: 0px
+      position: absolute
+      bottom: 60px
+      left: 50px
+      width: 90%
+      height: 100px
+      img
+        &.social-icons
+          max-width: 400px
+          float: right
+          opacity: 1
+        &#vr_goarmy
+          margin-top: 15px
+          max-width: 270px
+          position: relative
+          float: right
+          bottom: -200px
+    .vr-cta
+      margin-top: 10px
+      height: 45px
+      position: relative
+      float: left
+      opacity: 1
+      color: $yellow
+      .cta_text
+        bottom: -200px
+        position: relative
+        h5
+          margin: 0
+          font-size: 40px
+          line-height: .5
+        h6
+          margin: 0
+          font-size: 50px
+          color: $yellow
+  
+  h6
+    font-size: 40px
+  .vr-shapes-container
+    height: 1920px
+    width: 1080px
+    position: absolute
+    top: 0
+    left: 0
+    .yellow-bar-container
+      .yellow-bar-1
+        top: 2px
+      .yellow-bar
+        display: none
+        background-color: $yellow
+        width: 2880px
+        height: 33.1%
+        position: relative
+        z-index: 12
+        margin-top: -2px
+    .vr-lockup
+      top: 638px
+      height: 636px
+      width: 100%
+      position: absolute
+      z-index: 12
+      opacity: 1
+      img
+        margin: 190px auto 0 auto
+        width: auto
+  .vr_video_box
+    top: 638px
+    height: 636px
+    width: 100%
+    position: absolute
+    z-index: 12
+    opacity: 0
+    .vrbkgd
+      width: 1080px
+      height: 644px
+      position: relative
+      z-index: 0
+      opacity: 0
+    .video-js, .vjs-tech
+      position: relative !important
+      width: 1080px !important
+      height: auto !important
+  .vr-intro-frame, .vr-main-frame, .vr-buffer-frame
+    opacity: 0
+  .vr-buffer-frame img, .vr-buffer-frame
+    position: absolute
+    top: 0
+    left: 0
+    height: 1920px
+    width: 1080px
+
+/*Bottom Half
+
+.drone.astroFormat .astro_video_box
+  top: 940px !important
+  height: 625px !important
+
+.band.astroFormat .astro_video_box, .band2.astroFormat .astro_video_box
+  height: 640px !important
+
+.astro1.astroFormat .astro_video_box
+  height: 695px !important
+
+.astro2.astroFormat
+  .astro_video_box
+    height: 765px !important
+  .astro-footer .image-footer
+    bottom: 100px !important
+
+.astroFormat, .vrFormat
+  .anim-box
+    position: absolute
+    width: 100%
+    height: 702px
+  .yellow_border1, .yellow_border2
+    width: 1080px
+    background-color: $yellow
+    position: absolute
+    z-index: 12
+    height: 35px
+  .yellow_border1
+    top: 0px
+  .yellow_border2
+    bottom: 0px
+
+.yellow-bar-container
+  position: absolute
+  width: 1080px
+  height: 100%
+  top: 0
+
+.astroFormat
+  .yellow-bar-container
+    .yellow-bar-1
+      top: 2px
+    .yellow-bar
+      background-color: $yellow
+      width: 2880px
+      height: 33.1%
+      position: relative
+      z-index: 12
+      margin-top: -2px
+      /*  top: -707px;
+      opacity: 1
+  .astrobkgd, .vrbkgd
+    width: 1080px
+    height: 702px
+    position: relative
+    z-index: 0
+    opacity: 0
+  .video-js, .vjs-tech
+    position: relative !important
+    width: 1080px !important
+    height: auto !important
+
+.dewFormat
+  .video-js, .vjs-tech
+    position: absolute !important
+    width: 1080px !important
+    height: auto !important
+
+
+//ASTRO
+.astroFormat
+  .astro-text-container
+    position: absolute
+    background: #000
+    border-radius: 0 0 40px 40px
+    z-index: 99
+    left: 5%
+    top: -600px !important
+    padding: 30px
+    width: 70% !important
+    height: auto
+    display: flex
+    flex-direction: column
+    /*  display: none;
+    .astro-headline-container
+      position: relative
+      overflow: hidden
+      font-weight: 400
+      clear: both
+      z-index: 99
+    .astro-copy-container
+      position: relative
+      line-height: 1.15em
+      font-weight: 400
+      font-size: 36px
+      clear: both
+      z-index: 99
+      p.secondary-copy
+        display: none
+  .astro-headline-container h2
+    position: relative
+    font-size: 70px
+    /*  margin-top: 15px;
+    text-transform: uppercase
+    line-height: 1em
+    font-weight: 400
+    margin: 25px 0 0 15px
+  .astro-text-container
+    p
+      position: relative
+      /*  margin-top: 20px;
+      font-size: 38px
+      font-weight: 400
+      margin: 25px 0 15px 15px
+      opacity: 0
+    strong
+      font-weight: 400
+  .astro-footer
+    .image-footer
+      margin-top: 0px
+      position: absolute
+      bottom: 150px
+      left: 50px
+      width: 90%
+      height: 100px
+    .astro-cta
+      margin-top: 30px
+      width: 700px
+      height: 45px
+      position: relative
+      font-size: 40px
+      float: left
+      opacity: 1
+      overflow: hidden
+      color: $yellow
+  .cta_text
+    bottom: -200px
+    position: relative
+  h6
+    font-size: 40px
+  .astro-footer img
+    &.social-icons
+      max-width: 260px
+      float: right
+      opacity: 1
+      margin-top: 20px
+    &#astro_goarmy
+      margin-top: 15px
+      max-width: 270px
+      position: relative
+      float: right
+      bottom: -200px
+  .astro-text-container p span, .astro-footer p span
+    color: $yellow !important
+
+    
+//AAB
+.aabFormat
+  width: 1080px
+  height: 1920px
+  .aab-text-container
+    position: absolute
+    z-index: 99
+    padding: 30px
+    width: 100%
+    height: 460px
+    top: 60px
+    .aab-army-logo
+      left: -290px
+      position: absolute
+      img
+        max-width: 270px
+    .aab-headline-container
+      top: 32px
+      left: 370px
+      position: absolute
+      font-size: 92px
+      letter-spacing: -.05em
+      position: relative
+      overflow: hidden
+      font-family: $regular-stack
+      clear: both
+      z-index: 99
+      line-height: 1em
+      div
+        padding-top: 100px
+        line-height: 1em
+        height: 1em
+        display: inline-block
+        overflow: hidden
+        position: relative
+        text-transform: uppercase
+      div.aab-date
+        font-size: .75em
+        color: $yellow
+        margin-left: 30px
+  .aab-video-container
+    top: 460px
+    position: relative
+    left: 0
+    height: 1000px
+    width: 100%
+    .aabbkgd
+      width: 1080px
+      height: 1000px
+      position: relative
+      z-index: 0
+      opacity: 0
+    .video-js, .vjs-tech
+      position: relative !important
+      width: 1080px !important
+      height: auto !important
+  .aab-footer
+    position: absolute
+    margin: 20px auto
+    top: 1540px
+    width: 100%
+    font-size: 28px
+    color: #959595
+    .aab-logo
+      position: relative
+      height: 134px
+      width: 211px
+      margin: 0 auto
+      overflow: hidden
+      img
+        padding-top: 200px
+    .footer-text
+      text-align: center
+      margin: 40px auto 0 auto
+      .footer-main
+        div
+          display: inline-block
+          overflow: hidden
+          height: 1.3em
+        .main-left
+          text-align: right
+          width: 200px
+          p
+            padding-left: 600px
+        .main-right
+          width: 410px
+          text-align: left
+          p
+            margin-left: -600px
+        .divider
+          margin: 0
+          font-weight: 400
+          color: inherit
+          width: 20px
+          clip-path: inset(50% 0)
+          -webkit-clip-path: inset(50% 0)
+      span
+        color: $yellow
+        font-weight: bold
+    .footer-social
+      margin-top: 10px
+      height: 36px
+      overflow: hidden
+      div
+        display: inline-block
+        height: 1.1em
+        width: 170px
+      div.aab-hashtag
+        padding-top: 50px
+      .social-icons
+        max-width: 146px
+        opacity: 1
+        margin-left: 10px
+        margin-top: 7px
+        padding-top: 50px
+  .aab-text-container p span, .aab-footer p span
+    color: $yellow !important
+    
+/* Robotics - JW
+ *-----------------------------------------------------------------
+
+.robotFormat
+  .portfolio-text-container
+    position: absolute
+    background: #000
+    border-radius: 0 40px 40px 0
+    z-index: 99
+    left: 0
+    top: 4%
+    padding: 40px 80px
+    width: 75% !important
+    p
+      font-size: 30px
+      width: 100%
+    h2
+      margin-left: -1080px
+      opacity: 1
+  .scrolling-image
+    border: none !important
+    position: absolute
+    top: 960px
+    z-index: 9
+    opacity: 1
+    width: 1080px
+    height: 675px
+    img
+      // this can almost certainly be cleaned up
+      max-width: 1373px
+      width: 1373px
+      height: 675px
+  .robotics-footer
+    position: absolute
+    top: 1760px
+    padding: 0 80px
+    display: flex
+    width: 100%
+    flex-direction: row
+    align-items: flex-end
+    justify-content: space-between
+    z-index: 3
+    img
+      &.goarmy-logo
+        max-width: 220px
+      &.social-icons
+        max-width: 320px
+    
+    
+/* MISSION STYLING - JW
+ *-----------------------------------------------------------------
+
+.missionFormat
+  div.heading
+    position: absolute
+    top: 112px
+    left: 120px
+    z-index: 9
+    color: black
+    font-size: 80px
+    font-weight: 600
+    text-transform: uppercase
+    max-width: 800px
+    text-align: justify
+    div
+      padding: 8px 40px 0 40px
+      margin: 0
+    .heading1
+      margin-bottom: 10px
+      background: white
+    .heading2
+      background: $yellow
+  .portfolio-text-container
+    position: absolute
+    background: #000
+    border-radius: 0 40px 40px 0
+    z-index: 9
+    left: 0
+    top: 1050px
+    padding: 40px 10px 40px 120px
+    width: auto !important
+    font-size: 48px
+    line-height: .9em
+    p
+      width: 690px
+      opacity: 0
+      margin-top: 0
+      margin-bottom: 0
+      .difficulty
+        font-size: 20px
+    h2
+      margin-left: -1080px
+      width: 690px
+      text-transform: none
+      opacity: 1
+      font-size: 48px
+      color: $yellow
+  .scrolling-image
+    border: none !important
+    position: absolute
+    top: 250px
+    z-index: 7
+    opacity: 1
+    width: 1080px
+    height: 675px
+    img
+      // this can almost certainly be cleaned up
+      max-width: 1294px
+      width: 1294px
+      height: 675px
+  img.brackets
+    position: absolute
+    z-index: 9
+    top: 970px
+    left: 80px
+    display: block
+    width: 742px
+    height: 453px
+  .mission-footer
+    position: absolute
+    top: 1760px
+    padding: 0 80px
+    display: flex
+    width: 100%
+    flex-direction: row
+    align-items: flex-end
+    justify-content: space-between
+    z-index: 3
+    img
+      &.goarmy-logo
+        max-width: 220px
+      &.social-icons
+        max-width: 320px
+
+div.dividerFormat, div.dividerFormat div.divider-container
+  width: 1080px
+  height: 1920px
+  
+$divider-copy-offset: 507px  
+
+div.dividerFormat
+  img
+    position: absolute
+    width: auto !important
+    &.army-logo
+      left: 430px
+      top: 127px
+      width: 200px !important
+    &.copy-container
+      left: 74px
+      top: $divider-copy-offset
+    &.copy
+      left: 77px
+      top: ($divider-copy-offset + 31px)
+    &.logo
+      left: 312px
+      top: 1470px
+    &.disc
+      max-width: 1200px
+      left: -60px
+      top: 1064px
+
+// Config
+.featherlight
+  .featherlight-content
+    background: #222 !important
+    width: 900px
+    height: 1500px
+    overflow-y: scroll
+    opacity: 0
+html.with-featherlight .featherlight .featherlight-content
+  opacity: 1
+#configWrapper
+  background: #222
+  .container
+    width: auto
+  
+.location-input 
+  color: #eee !important
+  border: 2px #555 solid !important
+  border-radius: 5px !important
+  margin-bottom: 60px
+
+// Helpers
+
+.hidden
+  display: none
