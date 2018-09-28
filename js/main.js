@@ -14,7 +14,7 @@ $(window).ready(function () {
         language: 'english',
         format: 'welcome',
         heading: 'WELCOME TO',
-        copy: 'St. Louis',
+        location: 'St. Louis',
         url: 'goarmy.com',
         duration: '6000', //ms
         image: 'none',
@@ -25,14 +25,14 @@ $(window).ready(function () {
         language: 'spanish',
         format: 'welcome',
         heading: 'Bienvenidos a',
-        copy: 'St. Louis',
+        location: 'St. Louis',
         url: 'goarmy.com',
         duration: '6000', //ms
         image: 'none',
         enabled: false
     },
       {
-        title: 'Welcome',
+        title: 'Messaging',
         language: 'english',
         format: 'welcome',
         subformat: 'messaging',
@@ -647,13 +647,21 @@ $(window).ready(function () {
         enabled: false
     },
       {
+        unique_hook: 'divider',
+        title: 'VR - Divider',
+        language: 'english',
+        format: 'divider',
+        enabled: true
+    },
+      {
         unique_hook: 'knights',
         title: 'VR - Golden Knights',
         language: 'english',
         format: 'vr',
         duration: 36, // seconds
         lockup: 'img/lockup/knights.png',
-        video: 'videos/vr/knights.mp4',
+        lockupContainer: 'img/lockup/knights-container.png',
+        video:'videos/vr/knights.mp4',
         top_image: 'img/scrolling/gk-top.png',
         bottom_image: 'img/scrolling/gk-bottom.png',
         enabled: true
@@ -672,6 +680,7 @@ $(window).ready(function () {
         format: 'vr',
         duration: 39, // seconds
         lockup: 'img/lockup/nhra.png',
+        lockupContainer: 'img/lockup/nhra-container.png',
         video: 'videos/vr/racing.mp4',
         top_image: 'img/scrolling/nhra-top.png',
         bottom_image: 'img/scrolling/nhra-bottom.png',
@@ -714,7 +723,8 @@ $(window).ready(function () {
       $(welcomeClass + ' .date').addClass('hidden');
     } else if (!slide.subformat || slide.subformat == "") {
       $(welcomeClass + ' .welcome-header').html(slide.heading);
-      $(welcomeClass + ' .event-name').html(slide.copy);
+      //populate event name
+      $(welcomeClass + ' .event-name').html(slide.location);
       $('.date').html(getDate()); // update the date field with today's date
       $(welcomeClass + ' .go-army').html(slide.url);
     }
@@ -770,7 +780,6 @@ $(window).ready(function () {
       'height': 628
     }, function () {
       dynamicVideos[hook] = this;
-      console.log(dynamicVideos[hook]);
     });
 
     $('.' + (index + 1) + '-astro .scrolling_img1 img').attr('src', slide.top_image1);
@@ -779,11 +788,9 @@ $(window).ready(function () {
   }
 
   function populateVR(index, slide, hook) {
-    console.log('populating VR');
     var tempVideo = '<source src="' + slide.video + '"/>',
       targetElement = $('.' + (index + 1) + '-vr video.vrbkgd');
 
-    console.log(targetElement);
     targetElement.html(tempVideo);
 
     videojs(targetElement[0], {
@@ -793,13 +800,13 @@ $(window).ready(function () {
       'width': '100%',
       'height': 628
     }, function () {
-      console.log('vr player initialized');
       dynamicVideos[hook] = this;
       console.log('dynamic hook: ' + hook);
     });
 
     // Populate images
-    $('.' + (index + 1) + '-vr .vr-intro-frame .vr-lockup img').attr('src', slide.lockup);
+    $('.' + (index + 1) + '-vr .vr-intro-frame .vr-lockup img.lockup').attr('src', slide.lockup);
+    $('.' + (index + 1) + '-vr .vr-intro-frame .vr-lockup img.lockup-container').attr('src', slide.lockupContainer);
     $('.' + (index + 1) + '-vr .vr-intro-frame .vr_top_image .scrolling_img img').attr('src', slide.top_image);
     $('.' + (index + 1) + '-vr .vr-intro-frame .vr_bottom_image .scrolling_img img').attr('src', slide.bottom_image);
     $('.' + (index + 1) + '-vr video.vrbkgd').load();
@@ -820,7 +827,6 @@ $(window).ready(function () {
     }
 
     $('.' + (index + 1) + '-aab h6').html(slide.cta);
-    console.log(targetElement);
     targetElement.html(tempVideo);
 
     videojs(targetElement[0], {
@@ -830,16 +836,13 @@ $(window).ready(function () {
       'width': '100%',
       'height': 628
     }, function () {
-      console.log('AAB player initialized');
       dynamicVideos[hook] = this;
-      console.log(dynamicVideos[hook]);
     });
 
     $('.' + (index + 1) + '-aab video.aabbkgd').load();
   }
 
   function populateRobot(index, slide) {
-    console.log('populateRobot');
     $('.' + (index + 1) + '-robot h2').html(slide.heading);
     $('.' + (index + 1) + '-robot p').html(slide.copy);
     $('.' + (index + 1) + '-robot .portfolio-image img').attr('src', slide.image);
@@ -847,7 +850,6 @@ $(window).ready(function () {
   }
 
   function populateMission(index, slide) {
-    console.log('populateMission');
     $('.' + (index + 1) + '-mission div.heading1').html(slide.heading);
     $('.' + (index + 1) + '-mission div.heading2').html(slide.heading2);
     $('.' + (index + 1) + '-mission h2').html(slide.subheading);
@@ -871,7 +873,6 @@ $(window).ready(function () {
       'width': '100%',
       'height': 1920
     }, function () {
-      console.log('Trivia player initialized:' + hook);
       dynamicVideos[hook] = this;
     });
 
@@ -890,8 +891,10 @@ $(window).ready(function () {
       var slideRowTemplate = $('#slideRowTemplate').clone(),
         tempID = 'slide-' + (n + 1);
 
-      if (slides[n].format == 'welcome') {
-        $('.location-input').val(slides[n].copy);
+      if (slides[n].format == 'welcome' && !slides[n].subformat) {
+        // set the config's location\
+        document.getElementsByClassName('location-input')[0].value = slides[n].location;
+        //$('#configWrapper .location-input').val(slides[n].location);
       }
 
       //Seperates the English and Spanish slides into different tables
@@ -954,7 +957,6 @@ $(window).ready(function () {
     TweenMax.set($(prefix + ' .scrolling_img2'), {
       clearProps: 'all'
     });
-    console.log('.' + hook);
 
 
     //Adjusting for different scrolling images
@@ -1199,7 +1201,6 @@ $(window).ready(function () {
   }
 
   function animateVR(index, slideID, hook, videoLength) {
-    console.log(videoLength);
     var d = 0, // base delay
       duration = 6, // easy duration setting just in case it changes.
       scrollTime = 10000,
@@ -1263,13 +1264,29 @@ $(window).ready(function () {
       opacity: 1,
       ease: Power1.easeIn
     });
+    TweenMax.fromTo($(prefix + ' .vr-intro-frame .lockup-container'), .4, {
+      scale: .01
+    }, {
+      scale: 1,
+      ease: Power2.easeOut,
+      delay: 1.1
+    });
+    
+    TweenMax.fromTo($(prefix + ' .vr-intro-frame .lockup'), 1.1, {
+      opacity: 0
+    }, {
+      opacity: 1,
+      ease: Power2.easeOut,
+      delay: 1.5
+    });
+    
     // Scrolling Images
     TweenMax.to($(prefix + ' .vr-intro-frame .vr_top_image .scrolling_img'), .8, {
       opacity: 1,
       ease: Power1.easeIn
     });
     TweenMax.to($(prefix + ' .vr-intro-frame .vr_top_image .scrolling_img'), (scrollTime/1000), {
-      x: 587,
+      x: -229,
       ease: Power0.easeInOut,
       delay: 0.5
     });
@@ -1279,28 +1296,22 @@ $(window).ready(function () {
       ease: Power1.easeIn
     });
     TweenMax.to($(prefix + ' .vr-intro-frame .vr_bottom_image .scrolling_img'), (scrollTime/1000), {
-      x: -587,
+      x: 229,
       ease: Power0.easeInOut,
       delay: 0.5
     });
 
-    if (hook == 'racing') {
-
-    } else if (hook == 'knights') {
-
-    }
-
     // Animate Borders
-    TweenMax.from($(prefix + ' .vr-intro-frame .yellow_border1'), 0.6, {
-      x: -2000,
+    TweenMax.from($(prefix + ' .vr-intro-frame .yellow_border1'), 1.3, {
+      x: 2400,
       ease: Power2.easeOut,
-      delay: 1.2
+      delay: .7
     });
     
-    TweenMax.from($(prefix + ' .vr-intro-frame .yellow_border2'), 0.6, {
-      x: -2000,
+    TweenMax.from($(prefix + ' .vr-intro-frame .yellow_border2'), 1.3, {
+      x: -2400,
       ease: Power2.easeOut,
-      delay: 0.8
+      delay: 1.2
     });
 
     var currentVid = dynamicVideos[hook];
@@ -1337,7 +1348,6 @@ $(window).ready(function () {
         });
         
         owl.trigger('play.owl.autoplay', [standardTimeout, standardTimeout]);
-        console.log('secondary timeout');
       }, ((videoLength * 1000) - (standardTimeout + 700))); //convert to MS, subtract owl's timeout
 //        }, (videoLength * 1000)); //convert to MS, subtract owl's DEV
       TweenMax.to($(prefix + ' .vr-intro-frame'), .5, {
@@ -1349,17 +1359,24 @@ $(window).ready(function () {
         delay: .3
       });
       
+      TweenMax.to($(prefix + ' .vr-main-frame .disc'), 70, {
+        autoAlpha: 1,
+        rotation: 360,
+        ease: Linear.easeNone,
+        repeat: -1
+      });
+      
       // Animate Borders
-      TweenMax.from($(prefix + ' .vr-main-frame .yellow_border1'), 0.6, {
-        x: -2000,
+      TweenMax.from($(prefix + ' .vr-main-frame .yellow_border1'), 1.3, {
+        x: 2400,
         ease: Power2.easeOut,
-        delay: .6
+        delay: .7
       });
 
-      TweenMax.from($(prefix + ' .vr-main-frame .yellow_border2'), 0.6, {
-        x: -2000,
+      TweenMax.from($(prefix + ' .vr-main-frame .yellow_border2'), 1.3, {
+        x: -2400,
         ease: Power2.easeOut,
-        delay: 0.2
+        delay: 1.2
       });
       
       setTimeout(function() {
@@ -1367,12 +1384,6 @@ $(window).ready(function () {
       }, 500);
       
     }, scrollTime); //convert to MS
-
-//    owl.trigger('stop.owl.autoplay');
-//    clearTimeout(slideTimeout);
-//    slideTimeout = setTimeout(function () {
-//      owl.trigger('play.owl.autoplay', [standardTimeout, standardTimeout]);
-//    }, ((videoLength * 1000) - standardTimeout)); //convert to MS
   }
   
   function animateDivider(index, slideID, hook) {
@@ -1517,7 +1528,6 @@ $(window).ready(function () {
     window.localStorage.clear();
 
     var tempDebugArray = window.localStorage.getArray('slides');
-    console.log(tempDebugArray.length);
 
     // slides.forEach(function(e) {
     //   window.localStorage.pushArrayItem('slides', e); // loop through and put each item in the array
@@ -1715,13 +1725,11 @@ $(window).ready(function () {
 
     //todo, figure out how to target this better
     $.each(dynamicVideos, function (index, value) {
-      console.log(index);
       value.pause();
       value.currentTime(0);
       //value.load();
     });
 
-    console.log(dynamicVideos);
 
     var current = property.item.index;
 
@@ -1842,7 +1850,6 @@ $(window).ready(function () {
         //Stop autoplay
         owl.trigger('stop.owl.autoplay');
         //Restart autoplay
-        console.log(videoLength);
         clearTimeout(slideTimeout);
         slideTimeout = setTimeout(function () {
           owl.trigger('play.owl.autoplay', [standardTimeout, standardTimeout]);
@@ -1931,7 +1938,6 @@ $(window).ready(function () {
           astroTemplate.addClass('astro-animated');
         }
       }
-      console.log('lift off');
       if (hookClass != null) {
         astroTemplate.addClass(hookClass); // change Class
       }
@@ -1952,7 +1958,6 @@ $(window).ready(function () {
           vrTemplate.addClass('vr-animated');
         }
       }
-      console.log('vr boi');
       if (hookClass != null) {
         vrTemplate.addClass(hookClass); // change Class
       }
@@ -2028,10 +2033,15 @@ $(window).ready(function () {
   }
 
   $('#saveButton').click(function () {
+    event.preventDefault();
+    console.log(document.getElementsByClassName('location-input')[0].value);
+    
     window.localStorage.deleteArray('slides');
 
-    slides[0].copy = $('.location-input').val();
-    slides[1].copy = $('.location-input').val();
+//    slides[0].location = $('#configWrapper .location-input').val();
+//    slides[1].location = $('#configWrapper .location-input').val();
+    slides[0].location = document.getElementsByClassName('location-input')[0].value;
+    slides[1].location = document.getElementsByClassName('location-input')[0].value;
 
     slides.forEach(function (e) {
       window.localStorage.pushArrayItem('slides', e); // loop through and put each item in the array
@@ -2119,7 +2129,9 @@ $(window).ready(function () {
     }
   });
 
-  $('#hiddenButton').featherlight('#configWrapper');
+  $('#hiddenButton').featherlight('#configWrapper',{
+    persist: true
+  });
 
 });
 

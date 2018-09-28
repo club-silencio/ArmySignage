@@ -387,8 +387,7 @@ span.go-army {
       position: relative;
       height: 642px;
       z-index: 9;
-      opacity: 0;
-      left: -587px; }
+      opacity: 0; }
     .vrFormat .vr_top_image img {
       height: 100%;
       max-width: 2300px;
@@ -405,7 +404,8 @@ span.go-army {
       position: relative;
       height: 647px;
       z-index: 9;
-      opacity: 0; }
+      opacity: 0;
+      left: -229px; }
     .vrFormat .vr_bottom_image img {
       height: 100%;
       max-width: 2300px;
@@ -418,9 +418,15 @@ span.go-army {
     font-weight: 400;
     margin: 25px 0 0 15px; }
   .vrFormat .vr-header img {
-    position: absolute;
-    top: 0;
-    left: 0; }
+    position: absolute; }
+    .vrFormat .vr-header img.logo {
+      top: 170px;
+      left: 55px;
+      width: 360px; }
+    .vrFormat .vr-header img.disc {
+      top: -130px;
+      left: -200px;
+      width: 900px; }
   .vrFormat .vr-footer .vr-footer p span {
     color: #ffd530 !important; }
   .vrFormat .vr-footer .image-footer {
@@ -431,7 +437,7 @@ span.go-army {
     width: 90%;
     height: 100px; }
     .vrFormat .vr-footer .image-footer img.social-icons {
-      max-width: 400px;
+      max-width: 320px;
       float: right;
       opacity: 1; }
     .vrFormat .vr-footer .image-footer img#vr_goarmy {
@@ -466,33 +472,35 @@ span.go-army {
     position: absolute;
     top: 0;
     left: 0; }
-    .vrFormat .vr-shapes-container .yellow-bar-container .yellow-bar-1 {
-      top: 2px; }
-    .vrFormat .vr-shapes-container .yellow-bar-container .yellow-bar {
-      display: none;
-      background-color: #ffd530;
-      width: 2880px;
-      height: 33.1%;
-      position: relative;
-      z-index: 12;
-      margin-top: -2px; }
-    .vrFormat .vr-shapes-container .vr-lockup {
-      top: 638px;
-      height: 636px;
-      width: 100%;
-      position: absolute;
-      z-index: 12;
-      opacity: 1; }
-      .vrFormat .vr-shapes-container .vr-lockup img {
-        margin: 190px auto 0 auto;
-        width: auto; }
-  .vrFormat .vr_video_box {
+  .vrFormat .yellow_border1 {
+    left: -870px;
+    top: -31px; }
+  .vrFormat .yellow_border2 {
+    left: 870px;
+    bottom: -33px; }
+  .vrFormat .vr-lockup {
     top: 638px;
     height: 636px;
     width: 100%;
     position: absolute;
     z-index: 12;
+    opacity: 1; }
+    .vrFormat .vr-lockup img {
+      position: absolute;
+      top: 188px;
+      left: 5%;
+      max-width: 960px; }
+  .vrFormat .vr_video_box {
+    top: 638px;
+    height: 607px;
+    width: 100%;
+    position: absolute;
+    z-index: 12;
     opacity: 0; }
+    .vrFormat .vr_video_box .yellow-border1 {
+      top: -35px; }
+    .vrFormat .vr_video_box .yellow-border2 {
+      bottom: -30px; }
     .vrFormat .vr_video_box .vrbkgd {
       width: 1080px;
       height: 644px;
@@ -538,9 +546,10 @@ span.go-army {
   position: absolute;
   z-index: 12;
   height: 35px; }
-.astroFormat .yellow_border1, .vrFormat .yellow_border1 {
+
+.astroFormat .yellow_border1 {
   top: 0px; }
-.astroFormat .yellow_border2, .vrFormat .yellow_border2 {
+.astroFormat .yellow_border2 {
   bottom: 0px; }
 
 .yellow-bar-container {

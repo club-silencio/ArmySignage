@@ -413,7 +413,6 @@ span.go-army
       height: 642px
       z-index: 9
       opacity: 0
-      left: -587px
     img
       height: 100%
       max-width: 2300px
@@ -431,6 +430,7 @@ span.go-army
       height: 647px
       z-index: 9
       opacity: 0
+      left: -229px
     img
       height: 100%
       max-width: 2300px
@@ -445,8 +445,14 @@ span.go-army
   .vr-header
     img
       position: absolute
-      top: 0
-      left: 0
+      &.logo
+        top: 170px
+        left: 55px
+        width: 360px
+      &.disc
+        top: -130px
+        left: -200px
+        width: 900px
   .vr-footer
     .vr-footer p span
       color: $yellow !important
@@ -459,7 +465,7 @@ span.go-army
       height: 100px
       img
         &.social-icons
-          max-width: 400px
+          max-width: 320px
           float: right
           opacity: 1
         &#vr_goarmy
@@ -495,34 +501,35 @@ span.go-army
     position: absolute
     top: 0
     left: 0
-    .yellow-bar-container
-      .yellow-bar-1
-        top: 2px
-      .yellow-bar
-        display: none
-        background-color: $yellow
-        width: 2880px
-        height: 33.1%
-        position: relative
-        z-index: 12
-        margin-top: -2px
-    .vr-lockup
-      top: 638px
-      height: 636px
-      width: 100%
-      position: absolute
-      z-index: 12
-      opacity: 1
-      img
-        margin: 190px auto 0 auto
-        width: auto
-  .vr_video_box
+  .yellow_border1
+    left: -870px
+    top: -31px
+  .yellow_border2
+    left: 870px
+    bottom: -33px
+  .vr-lockup
     top: 638px
     height: 636px
     width: 100%
     position: absolute
     z-index: 12
+    opacity: 1
+    img
+      position: absolute
+      top: 188px
+      left: 5%
+      max-width: 960px
+  .vr_video_box
+    top: 638px
+    height: 607px
+    width: 100%
+    position: absolute
+    z-index: 12
     opacity: 0
+    .yellow-border1
+      top: -35px
+    .yellow-border2
+      bottom: -30px
     .vrbkgd
       width: 1080px
       height: 644px
@@ -571,6 +578,7 @@ span.go-army
     position: absolute
     z-index: 12
     height: 35px
+.astroFormat
   .yellow_border1
     top: 0px
   .yellow_border2
